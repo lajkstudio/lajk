@@ -1,0 +1,9 @@
+/*Ezt majd szúrd be a főoldal CSS-be */
+.emoji_carousel{
+    margin-top: 30px;
+    width: 80%;
+    border: 5px solid black;
+    margin-left: auto;
+    margin-right: auto;
+    height: 80%;
+}
