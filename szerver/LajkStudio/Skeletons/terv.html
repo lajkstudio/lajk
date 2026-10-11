@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <title>{{name}} személyre szabása</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
+  <style>
+    body{
+      background-image: url("/fohatter.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #fcfaad;
+    }
+    h4{
+      font-weight: bold;
+    }
+    #logonev{
+      color: #e5d200;
+      font-weight: bold;
+    }
+    #ugyfelszolgalat{
+      color: #e5d200;
+      font-weight: bold;
+    }
+    
+    .product-kep {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand text-warning" href="/" id="logonev">
+          👍 LIKE
+        </a>
+      </div>
+      <div class="pull-right">
+        <a href="#" class="text-warning navbar-text" id="ugyfelszolgalat">Ügyfélszolgálat</a>
+      </div>
+    </div>
+  </header>
+
+
+
+  <main class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-6">
+        <div class="well well-sm" style="background: #fdfdd5">
+          <h4><em>{{name}} személyre szabása</em></h4>
+        </div>
+
+
+        <div class="panel panel-default">
+          <div class="panel-body text-center">
+            <img src="{{img}}" alt="{{name}}" class="product-kep">
+          </div>
+        </div>
+
+
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <h5><strong>Válaszd ki mit szeretnél rátenni!</strong></h5>
+            <div class="row text-center">
+              <div class="col-xs-2"><button class="btn btn-default btn-block" type="button" onclick="incrementEmojies(this.innerText)">👍</button></div>
+              <div class="col-xs-2"><button class="btn btn-default btn-block" type="button" onclick="incrementEmojies(this.innerText)">😘</button></div>
+              <div class="col-xs-2"><button class="btn btn-default btn-block" type="button" onclick="incrementEmojies(this.innerText)">☺️</button></div>
+            <div class="col-xs-2"><button class="btn btn-default btn-block" type="button" onclick="incrementEmojies(this.innerText)">😍</button></div>
+              <div class="col-xs-2"><button class="btn btn-default btn-block" type="button" onclick="incrementEmojies(this.innerText)">🎂</button></div>
+              <div class="col-xs-2"><button class="btn btn-default btn-block" type="button" onclick="incrementEmojies(this.innerText)">💩</button></div>
+            </div>
+            <br>
+            
+            <div class="row text-center">
+              <div class="col-xs-2"><button class="btn btn-default btn-block" type="button" onclick="incrementEmojies(this.innerText)">💐</button></div>
+              <div class="col-xs-2"><button class="btn btn-default btn-block" type="button" onclick="incrementEmojies(this.innerText)">❤️</button></div>
+              <div class="col-xs-2"><button class="btn btn-default btn-block" type="button" onclick="incrementEmojies(this.innerText)">🐷</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <div class="col-xs-12 col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <h5 class="text-center"><strong>Tételek</strong></h5>
+            <div class="row">
+              <div class="col-xs-7">
+              </div>
+              <div class="col-xs-5 text-right">
+                <p>
+                  <strong>Alapár:</strong><br>
+                  <span class="text-warning"><em id="termek-ar">???</em> Ft</span>
+                </p>
+                <p>
+                  <strong>Kiválasztott emojik:</strong><br>
+                  <span class="text-warning"><em id="emoji-szam">???</em> db</span><br>
+                  <span class="text-warning"><em id="terv-ar">???</em> Ft</span>
+                </p>
+                <p>
+                  <strong>Összesen:</strong><br>
+                  <span class="text-warning"><em id="teljes-ar">???</em> Ft</span>
+                </p>
+                <button class="btn btn-warning btn-block" type="button">
+                  <span class="glyphicon glyphicon-shopping-cart"></span> Kosárba teszem👍
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="well well-sm text-warning" style="background: #fdfdd5">
+          <span class="glyphicon glyphicon-lock"></span> <strong>VIP matrica csomag</strong>
+        </div>
+
+
+
+        <div class="well text-center text-warning">
+          <h2><strong>VIP</strong></h2>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+ <footer class="main-footer">
+    <div class="container">
+      <p class="footer-text">LIKE™</p>
+    </div>
+  </footer>
+
+  <script>
+    const basePrice = {{price}};
+    const emojiPrice = {{emoji_price}};
+    let emojies = "";
+    
+    const basePriceE = document.getElementById("termek-ar");
+    const customPriceE = document.getElementById("terv-ar");
+    const emojiCountE = document.getElementById("emoji-szam");
+    const totalPriceE = document.getElementById("teljes-ar");
+
+    function visibleLength(str) {
+      return [...new Intl.Segmenter().segment(str)].length
+    }
+    
+    function setPrices(){
+      basePriceE.innerText = basePrice;
+      customPriceE.innerText = String(emojiPrice * visibleLength(emojies));
+      emojiCountE.innerText = String(visibleLength(emojies));
+      totalPriceE.innerText = String(basePrice + emojiPrice * visibleLength(emojies));
+    }
+    
+    function incrementEmojies(emoji){
+      emojies += emoji;
+      setPrices();
+    }
+
+    function resetEmojies(newEmojiCount){
+      emojies = "";
+      setPrices();
+    }
+
+    document.addEventListener("DOMContentLoaded", setPrices);
+  </script>
+
+</body>
+</html>
