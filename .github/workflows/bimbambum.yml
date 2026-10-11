@@ -1,0 +1,26 @@
+name: Build Windows Exe Juhu
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Publish Windows Single File
+      run: dotnet publish szerver/LajkStudio/LajkStudio.csproj -c Release -r win-x64 -p:PublishSingleFile=true --self-contained true -o ./publish-output
+
+    - name: Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Windoz-Build
+        path: ./publish-output/
