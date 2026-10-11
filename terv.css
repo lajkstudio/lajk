@@ -1,0 +1,20 @@
+body{
+    background-image: url("fohatter.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+#vsarga{
+    background: #fdfdd5;
+}
+h4{
+    font-weight: bold;
+}
+#logonev{
+    color: #e5d200;
+    font-weight: bold;
+}
+#ugyfelszolgalat{
+    color: #e5d200;
+    font-weight: bold;
+}
