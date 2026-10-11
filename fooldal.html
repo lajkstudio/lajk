@@ -7,8 +7,51 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="carousel.css">
   <link rel="stylesheet" href="fooldal.css">
+  <link rel="stylesheet" href="carousel.css">
+  <style>
+    /* Fixes for image sizes */
+    .image-placeholder img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        object-fit: contain;
+    }
+
+    .carousel-inner .item img {
+        max-width: 100%;
+        height: auto;
+        margin: 0 auto; 
+    }
+
+    /* Additional basic styling for preview purposes since external CSS files are missing */
+    .product-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        text-align: center;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .image-placeholder {
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f4f4f4;
+        margin-bottom: 15px;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    .product-title { margin-top: 0; font-size: 18px;}
+    .design-btn { margin-top: 10px; background-color:rgb(255, 195, 66); font-size:15px;}
+    .main-header { padding: 15px 0; background-color: #f8f8f8; border-bottom: 1px solid #e7e7e7;}
+    .logo-emoji { font-size: 24px; }
+    .header-right { margin-top: 8px; }
+    .products-section { margin-top: 30px; }
+    .main-footer { text-align: center; padding: 20px 0; margin-top: 40px; background-color: #f8f8f8; border-top: 1px solid #e7e7e7;}
+  </style>
 </head>
 <body>
 
@@ -37,15 +80,21 @@
 
       <div class="carousel-inner">
         <div class="item active">
-          <img src="1_emoji_polo.png" alt="Póló" style="width:100%;">
+          <div style="height: 300px; background-color: #e9ecef; display: flex; align-items: center; justify-content: center;">
+            <img src="carouselKepek/banner_mug.png" alt="Bögre">
+          </div>
         </div>
 
         <div class="item">
-          <img src="2_emoji_bogre.png" alt="Bögre" style="width:100%;">
+          <div style="height: 300px; background-color: #e9ecef; display: flex; align-items: center; justify-content: center;">
+            <img src="carouselKepek/banner_parna.png" alt="Párna">
+          </div>
         </div>
       
         <div class="item">
-          <img src="3_emoji_polo_pasztell.png" alt="Póló pasztell" style="width:100%;">
+          <div style="height: 300px; background-color: #e9ecef; display: flex; align-items: center; justify-content: center;">
+            <img src="carouselKepek/banner_tote.png" alt="Oldaltáska">
+          </div>
         </div>
       </div>
 
@@ -65,10 +114,10 @@
       <div class="col-xs-12 col-sm-6 col-md-4">
         <div class="product-card">
           <div class="product-info">
-            <h3 class="product-title"><a href="#">Póló</a></h3>
+            <h3 class="product-title">Póló</h3>
             <div class="product-image-container">
               <div class="image-placeholder">
-                <img src="egysegesitett/termek_01.png" alt="Póló" >
+                <img src="fooldalKepek/termek_01.png" alt="Póló" >
               </div>
             </div>
             <a href="#" class="btn btn-warning design-btn">Tervezés!</a>
@@ -79,10 +128,10 @@
       <div class="col-xs-12 col-sm-6 col-md-4">
         <div class="product-card">
           <div class="product-info">
-            <h3 class="product-title"><a href="#">Tornazsák</a></h3>
+            <h3 class="product-title">Tornazsák</h3>
             <div class="product-image-container">
               <div class="image-placeholder">
-                <img src="egysegesitett/termek_02.png" alt="Tornazsák" >
+                <img src="fooldalKepek/termek_02.png" alt="Tornazsák" >
               </div>
             </div>
             <a href="#" class="btn btn-warning design-btn">Tervezés!</a>
@@ -93,10 +142,10 @@
       <div class="col-xs-12 col-sm-6 col-md-4">
         <div class="product-card">
           <div class="product-info">
-            <h3 class="product-title"><a href="#">Zokni</a></h3>
+            <h3 class="product-title">Zokni</h3>
             <div class="product-image-container">
               <div class="image-placeholder">
-                <img src="egysegesitett/termek_03.png" alt="Zokni" >
+                <img src="fooldalKepek/termek_03.png" alt="Zokni" >
               </div>
             </div>
             <a href="#" class="btn btn-warning design-btn">Tervezés!</a>
@@ -107,10 +156,10 @@
       <div class="col-xs-12 col-sm-6 col-md-4">
         <div class="product-card">
           <div class="product-info">
-            <h3 class="product-title"><a href="#">Poszter</a></h3>
+            <h3 class="product-title">Poszter</h3>
             <div class="product-image-container">
               <div class="image-placeholder">
-                <img src="egysegesitett/termek_04.png" alt="Poszter" >
+                <img src="fooldalKepek/termek_04.png" alt="Poszter" >
                 </div>
             </div>
             <a href="#" class="btn btn-warning design-btn">Tervezés!</a>
@@ -121,10 +170,10 @@
       <div class="col-xs-12 col-sm-6 col-md-4">
         <div class="product-card">
           <div class="product-info">
-            <h3 class="product-title"><a href="#">Terítő</a></h3>
+            <h3 class="product-title">Terítő</h3>
             <div class="product-image-container">
               <div class="image-placeholder">
-                <img src="egysegesitett/termek_05.png" alt="Terítő" >
+                <img src="fooldalKepek/termek_05.png" alt="Terítő" >
               </div>
             </div>
             <a href="#" class="btn btn-warning design-btn">Tervezés!</a>
@@ -135,10 +184,10 @@
       <div class="col-xs-12 col-sm-6 col-md-4">
         <div class="product-card">
           <div class="product-info">
-            <h3 class="product-title"><a href="#">Párna</a></h3>
+            <h3 class="product-title">Párna</h3>
             <div class="product-image-container">
               <div class="image-placeholder">
-                <img src="egysegesitett/termek_06.png" alt="Párna" >
+                <img src="fooldalKepek/termek_06.png" alt="Párna" >
               </div>
             </div>
             <a href="#" class="btn btn-warning design-btn">Tervezés!</a>
@@ -149,10 +198,10 @@
       <div class="col-xs-12 col-sm-6 col-md-4">
         <div class="product-card">
           <div class="product-info">
-            <h3 class="product-title"><a href="#">Törölköző</a></h3>
+            <h3 class="product-title">Törölköző</h3>
             <div class="product-image-container">
               <div class="image-placeholder">
-                <img src="egysegesitett/termek_07.png" alt="Törölköző" >
+                <img src="fooldalKepek/termek_07.png" alt="Törölköző" >
               </div>
             </div>
             <a href="#" class="btn btn-warning design-btn">Tervezés!</a>
@@ -163,10 +212,10 @@
       <div class="col-xs-12 col-sm-6 col-md-4">
         <div class="product-card">
           <div class="product-info">
-            <h3 class="product-title"><a href="#">Bögre</a></h3>
+            <h3 class="product-title">Bögre</h3>
             <div class="product-image-container">
               <div class="image-placeholder">
-                <img src="egysegesitett/termek_08.png" alt="Bögre" >
+                <img src="fooldalKepek/termek_08.png" alt="Bögre" >
                 </div>
             </div>
             <a href="#" class="btn btn-warning design-btn">Tervezés!</a>
@@ -177,10 +226,10 @@
       <div class="col-xs-12 col-sm-6 col-md-4">
         <div class="product-card">
           <div class="product-info">
-            <h3 class="product-title"><a href="#">Ágyneműhuzat</a></h3>
+            <h3 class="product-title">Ágyneműhuzat</h3>
             <div class="product-image-container">
               <div class="image-placeholder">
-                <img src="egysegesitett/termek_10.png" alt="Ágyneműhuzat" >
+                <img src="fooldalKepek/termek_09.png" alt="Ágyneműhuzat" >
               </div>
             </div>
             <a href="#" class="btn btn-warning design-btn">Tervezés!</a>
@@ -191,10 +240,10 @@
       <div class="col-xs-12 col-sm-6 col-md-4">
         <div class="product-card">
           <div class="product-info">
-            <h3 class="product-title"><a href="#">Nadrág</a></h3>
+            <h3 class="product-title">Nadrág</h3>
             <div class="product-image-container">
               <div class="image-placeholder">
-                <img src="egysegesitett/termek_11.png" alt="Nadrág" >
+                <img src="fooldalKepek/termek_10.png" alt="Nadrág" >
               </div>
             </div>
             <a href="#" class="btn btn-warning design-btn">Tervezés!</a>
@@ -205,10 +254,10 @@
       <div class="col-xs-12 col-sm-6 col-md-4">
         <div class="product-card">
           <div class="product-info">
-            <h3 class="product-title"><a href="#">Sapka</a></h3>
+            <h3 class="product-title">Sapka</h3>
             <div class="product-image-container">
               <div class="image-placeholder">
-                <img src="egysegesitett/termek_12.png" alt="Sapka" >
+                <img src="fooldalKepek/termek_11.png" alt="Sapka" >
               </div>
             </div>
             <a href="#" class="btn btn-warning design-btn">Tervezés!</a>
@@ -219,10 +268,10 @@
       <div class="col-xs-12 col-sm-6 col-md-4">
         <div class="product-card">
           <div class="product-info">
-            <h3 class="product-title"><a href="#">Oldaltáska</a></h3>
+            <h3 class="product-title">Oldaltáska</h3>
             <div class="product-image-container">
               <div class="image-placeholder">
-                <img src="egysegesitett/termek_13.png" alt="Oldaltáska" >
+                <img src="fooldalKepek/termek_12.png" alt="Oldaltáska" >
               </div>
             </div>
             <a href="#" class="btn btn-warning design-btn">Tervezés!</a>
