@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LajkStudio.Models;
@@ -14,6 +15,8 @@ public class PersonalizationController : ControllerBase
     {
         _context = context;
     }
+
+    private static readonly ConcurrentDictionary<string, string> pageCache = new();
     
     [HttpGet("{id}/{colorNumber}")]
     public async Task<IActionResult> GetTervezesById(int id, int colorNumber)
@@ -21,7 +24,7 @@ public class PersonalizationController : ControllerBase
         var item = await _context.Items.FirstOrDefaultAsync(i => i.Id == id);
         if (item == null) return NotFound();
         
-        string htmlContent = System.IO.File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "Skeletons", "terv.html"));
+        string htmlContent = GetHtmlContent(Path.Combine(Directory.GetCurrentDirectory(), "Skeletons", "terv.html"));
         
         htmlContent = htmlContent.Replace("{{name}}", item.Name);
         
@@ -46,5 +49,10 @@ public class PersonalizationController : ControllerBase
         htmlContent = htmlContent.Replace("{{emoji_price}}", item.EmojiPriceIncrement.ToString());
         
         return Content(htmlContent, "text/html");
+    }
+
+    private static string GetHtmlContent(string fileName)
+    {
+        return pageCache.GetOrAdd(fileName, path => System.IO.File.ReadAllText(path));
     }
 }
