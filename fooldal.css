@@ -7,6 +7,11 @@ body{
 .row{
     margin-top: 100px;
 }
+#logo{
+        width: 90px;
+        height: 90px;
+        float: left;
+    }
 /*
 .product-card {
     background: #fdfdd5;
@@ -64,21 +69,5 @@ body{
 #logonev{
     color: #e5d200;
     font-weight: bold;
-}
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.header-link {
-    display: inline-flex;
-    align-items: center;
-    color: #e5d200;
-    font-weight: bold;
-    margin: 0;
-    padding: 0;
-    line-height: normal;
-    text-decoration: none;
 }
 
