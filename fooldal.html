@@ -348,5 +348,19 @@
     </div>
   </footer>
 
+  <script>
+      const cards = document.querySelectorAll('.product-card');
+    
+    cards.forEach(card => {
+      card.style.transition = 'transform 0.4s ease';
+      
+      card.onmouseenter = () => {
+        card.style.transform = 'scale(1.05)';
+      };  
+      card.onmouseleave = () => {
+        card.style.transform = 'scale(1)';
+      };
+    });
+  </script>  
 </body>
 </html>
