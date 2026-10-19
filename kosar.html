@@ -1,0 +1,269 @@
+ <!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIKE - Kosár és Pénztár</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="icon" href="favicon_io/favicon.ico" type="image/x-icon">
+    <link rel="manifest" href="favicon_io/site.webmanifest">
+</head>
+<style>
+    body{
+        background-image: url("fohatter.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    #logo{
+        width: 90px;
+        height: 90px;
+    }
+</style>
+<body>
+    <nav class="navbar navbar-expand bg-white border-bottom border-warning-subtle sticky-top py-2 px-3 shadow-sm">
+        <div class="container-fluid max-width-lg d-flex justify-content-between align-items-center">
+            <a class="navbar-brand d-flex align-items-center gap-2 fw-bold text-dark fs-4 m-0" href="#">
+                 <img src="logo.jpg" alt="logo" id="logo"><span>LIKE</span>
+            </a>
+            <div class="d-flex align-items-center gap-4">
+                <a href="#" class="text-decoration-none text-warning-emphasis fw-bold small">Ügyfélszolgálat</a>
+                <div class="d-flex align-items-center gap-1 text-dark fw-bold">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-auto py-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-10 col-xl-8">
+                <div class="bg-white rounded-4 shadow-sm p-4 p-md-5 border border-warning-subtle">
+                    <form action="#" method="POST">
+                        <div class="mb-4">
+                            <div class="bg-warning text-dark p-3 rounded-3 mb-3 fw-bold fs-5 d-flex align-items-center gap-2">
+                                <span>🛒</span> Kosár
+                            </div>
+                            
+                            <div class="d-flex flex-column gap-3">
+                                <div class="border border-warning-subtle rounded-3 p-3 d-flex align-items-center justify-content-between bg-light-subtle">
+                                    <div class="d-flex align-items-center gap-3">
+
+                                        <!-- itt kell képet cserélni -->
+                                        <div class="bg-dark text-white rounded-3 px-3 py-2 text-center fw-bold lh-sm text-nowrap">Termék<br>képe</div>
+                                        <span class="fw-bold">Termék neve</span>
+                                    </div>
+                                    <span class="text-warning-emphasis fw-bold fst-italic fs-5">Ár</span>
+                                </div>
+
+
+                                <div class="border border-warning-subtle rounded-3 p-3 d-flex align-items-center justify-content-between bg-light-subtle">
+                                    <div class="d-flex align-items-center gap-3">
+
+                                         <!-- itt kell képet cserélni -->
+                                        <div class="bg-dark text-white rounded-3 px-3 py-2 text-center fw-bold lh-sm text-nowrap">Termék<br>képe</div>
+                                        <span class="fw-bold">Termék neve</span>
+                                    </div>
+                                    <span class="text-warning-emphasis fw-bold fst-italic fs-5">Ár</span>
+                                </div>
+
+
+
+                                <div class="border border-warning-subtle rounded-3 p-3 d-flex align-items-center justify-content-between bg-light-subtle">
+                                    <div class="d-flex align-items-center gap-3">
+                                         <!-- itt kell képet cserélni -->
+                                        <div class="bg-dark text-white rounded-3 px-3 py-2 text-center fw-bold lh-sm text-nowrap">Termék<br>képe</div>
+                                        <span class="fw-bold">Termék neve</span>
+                                    </div>
+                                    <span class="text-warning-emphasis fw-bold fst-italic fs-5">Ár</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="border border-warning-subtle rounded-3 p-3 p-md-4 mb-4">
+                            <div class="fw-bold text-dark fs-6 mb-3 d-flex align-items-center gap-2">
+                                <span class="text-warning fs-5"></span> Szállítási cím
+                            </div>
+
+
+                            <div class="row g-3">
+                                <div class="col-12 col-md-6">
+                                    <label for="iranyitoszam" class="form-label small fw-semibold text-secondary ms-1 mb-1">Irányítószám</label>
+                                    <input type="text" class="form-control rounded-pill border-warning-subtle" id="iranyitoszam" name="iranyitoszam">
+                                </div>
+
+
+                                <div class="col-12 col-md-6">
+                                    <label for="varos" class="form-label small fw-semibold text-secondary ms-1 mb-1">Város</label>
+                                    <input type="text" class="form-control rounded-pill border-warning-subtle" id="varos" name="varos">
+                                </div>
+
+
+                                <div class="col-12 col-md-6">
+                                    <label for="utca" class="form-label small fw-semibold text-secondary ms-1 mb-1">Utca</label>
+                                    <input type="text" class="form-control rounded-pill border-warning-subtle" id="utca" name="utca">
+                                </div>
+
+
+                                <div class="col-12 col-md-6">
+                                    <label for="hazszam" class="form-label small fw-semibold text-secondary ms-1 mb-1">Házszám</label>
+                                    <input type="text" class="form-control rounded-pill border-warning-subtle" id="hazszam" name="hazszam">
+                                </div>
+
+
+                                <div class="col-12 col-md-6">
+                                    <label for="emelet" class="form-label small fw-semibold text-secondary ms-1 mb-1">Emelet, ajtó</label>
+                                    <input type="text" class="form-control rounded-pill border-warning-subtle" id="emelet" name="emelet">
+                                </div>
+
+
+                                <div class="col-12 col-md-6">
+                                    <label for="telefon" class="form-label small fw-semibold text-secondary ms-1 mb-1">Telefonszám</label>
+                                    <input type="tel" class="form-control rounded-pill border-warning-subtle" id="telefon" name="telefon">
+                                </div>
+
+
+                                <div class="col-12">
+                                    <label for="email" class="form-label small fw-semibold text-secondary ms-1 mb-1">Email cím</label>
+                                    <input type="email" class="form-control rounded-pill border-warning-subtle" id="email" name="email">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border border-warning-subtle rounded-3 p-3 p-md-4 mb-4">
+                            <div class="fw-bold text-dark fs-6 mb-3 d-flex align-items-center gap-2">
+                                <span class="text-warning fs-5">🚚</span> Szállítási mód
+                            </div>
+
+
+
+                            <div class="row g-3">
+                                <div class="col-12 col-md-4">
+                                    <div class="bg-warning-subtle p-3 rounded-4 border border-warning h-100">
+                                        <div class="form-check">
+                                            <input class="form-check-input ms-0 me-2" type="radio" name="szallitas" id="szall_gyors" value="gyors" checked>
+                                            <label class="form-check-label small fw-bold" for="szall_gyors">
+                                                Gyors szállítás<br><span class="fw-normal text-muted small">(1-2 munkanap)</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-12 col-md-4">
+                                    <div class="p-3 rounded-4 border border-warning-subtle h-100">
+                                        <div class="form-check">
+                                            <input class="form-check-input ms-0 me-2" type="radio" name="szallitas" id="szall_normal" value="normal">
+                                            <label class="form-check-label small fw-bold" for="szall_normal">
+                                                Normál szállítás<br><span class="fw-normal text-muted small">(3-5 munkanap)</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12 col-md-4">
+                                    <div class="p-3 rounded-4 border border-warning-subtle h-100">
+                                        <div class="form-check">
+                                            <input class="form-check-input ms-0 me-2" type="radio" name="szallitas" id="szall_szemelyes" value="szemelyes">
+                                            <label class="form-check-label small fw-bold" for="szall_szemelyes">
+                                                Személyes átvétel<br><span class="fw-normal text-muted small">(üzletben)</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border border-warning-subtle rounded-3 p-3 p-md-4 mb-4">
+                            <div class="fw-bold text-dark fs-6 mb-3 d-flex align-items-center gap-2">
+                                <span class="text-warning fs-5"></span> Fizetési opció
+                            </div>
+
+
+
+                            <div class="row g-4">
+                                <div class="col-12 col-md-4 d-flex flex-column gap-3 justify-content-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="fizetes" id="fiz_keszpenz" value="keszpenz">
+                                        <label class="form-check-label small fw-bold" for="fiz_keszpenz">
+                                            Készpénzes fizetés
+                                        </label>
+                                    </div>
+
+
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="fizetes" id="fiz_kartya" value="kartya" checked>
+                                        <label class="form-check-label small fw-bold" for="fiz_kartya">
+                                            Kártyás fizetés
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12 col-md-8">
+                                    <div class="small fw-bold text-secondary mb-3">Bankkártya adatok kártyás fizetés esetén</div>
+                                    <div class="row g-3">
+                                        <div class="col-12 col-sm-6">
+                                            <label for="kartyanev" class="form-label small fw-semibold text-secondary ms-1 mb-1">Kártyán szereplő név</label>
+                                            <input type="text" class="form-control rounded-pill border-warning-subtle" id="kartyanev" name="kartyanev">
+                                        </div>
+
+
+
+                                        <div class="col-12 col-sm-6">
+                                            <label for="kartyaszam" class="form-label small fw-semibold text-secondary ms-1 mb-1">Kártyaszám</label>
+                                            <input type="text" class="form-control rounded-pill border-warning-subtle" id="kartyaszam" name="kartyaszam">
+                                        </div>
+
+
+                                        <div class="col-12 col-sm-6">
+                                            <label class="form-label small fw-semibold text-secondary ms-1 mb-1">ÉV/HÓ/CVV kód</label>
+                                            <div class="d-flex gap-2">
+                                                <input type="text" class="form-control rounded-pill border-warning-subtle text-center" id="ev" name="ev" placeholder="ÉÉ">
+                                                <input type="text" class="form-control rounded-pill border-warning-subtle text-center" id="ho" name="ho" placeholder="HH">
+                                                <input type="text" class="form-control rounded-pill border-warning-subtle text-center" id="cvv" name="cvv" placeholder="CVV">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-12 col-sm-6">
+                                            <label for="lejarat" class="form-label small fw-semibold text-secondary ms-1 mb-1">Lejárati dátum</label>
+                                            <input type="text" class="form-control rounded-pill border-warning-subtle" id="lejarat" name="lejarat">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="bg-warning text-dark p-3 rounded-3 mb-4 d-flex justify-content-between align-items-center fw-bold fs-4">
+                            <span>Összesen:</span>
+                            <span class="fst-italic">Ár</span>
+                        </div>
+
+
+
+                        <div class="text-center pt-2">
+                            <button type="submit" class="btn bg-warning text-dark fw-bold rounded-pill px-5 py-2 fs-5 border-0 shadow-sm">
+                                Fizetés
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+  
+</body>
+</html>
