@@ -1,3 +1,7 @@
+html {
+    cursor: url('whole-hand-32.ico'), default;
+}
+
 body{
     background-image: url("fohatter.png");
     background-size: cover;
@@ -7,6 +11,11 @@ body{
 .row{
     margin-top: 100px;
 }
+#logo{
+        width: 90px;
+        height: 90px;
+        float: left;
+    }
 /*
 .product-card {
     background: #fdfdd5;
@@ -44,6 +53,17 @@ body{
 }
     */
 
+.mainTitle {
+    
+    width: 100%;
+    margin-top: 80px;
+    text-align: center;
+    font-size: 40px;
+    color: rgb(255, 195, 66);
+    text-shadow: #000 1px 1px 2px;
+    font-weight: bold;
+}
+
 .design-btn {
     align-self: flex-start;
     background: rgb(254, 241, 51);
@@ -80,5 +100,6 @@ header {
     padding: 0;
     line-height: normal;
     text-decoration: none;
+    cursor: url('one-finger-32.ico'), grab;
 }
 

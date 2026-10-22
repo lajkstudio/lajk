@@ -9,8 +9,14 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="fooldal.css">
   <link rel="stylesheet" href="carousel.css">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+  <link rel="icon" href="favicon_io/favicon.ico" type="image/x-icon">
+  <link rel="manifest" href="favicon_io/site.webmanifest">
   <style>
-   
+    
     .image-placeholder img {
         max-width: 100%;
         height: auto;
@@ -18,14 +24,19 @@
         object-fit: contain;
     }
 
-    /*sziasztok kutyák*/
+    .carousel-inner {
+        width: 200%;
+        overflow: hidden;
+        align-content: center;
+    }
+    
     .carousel-inner .item img {
         max-width: 100%;
         height: auto;
-        margin: 0 auto; 
+
     }
 
-   
+    
     .product-card {
         border: 1px solid #ddd;
         border-radius: 8px;
@@ -45,60 +56,108 @@
         border-radius: 4px;
         overflow: hidden;
     }
+
+    header.main-header {
+        display: block;
+        width: 100%;
+        padding: 12px 0;
+        margin: 0;
+        background-color: #fff;
+        border: none;
+        border-bottom: 1px solid rgba(255, 193, 7, 0.25);
+        border-radius: 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    header.main-header .header-container {
+        width: 100%;
+        padding: 0 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+    }
+
+    header.main-header .header-brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0;
+        padding: 0;
+        height: auto;
+        color: #212529;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: normal;
+        text-decoration: none;
+    }
+
+    header.main-header #logo {
+        display: block;
+        width: 90px;
+        height: 90px;
+        object-fit: contain;
+    }
+
+    header.main-header .header-link {
+        color: #212529;
+        font-size: 16px;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    header.main-header .header-link:hover {
+        color: #212529;
+        text-decoration: none;
+    }
+
     .product-title { margin-top: 0; font-size: 18px;}
-    .design-btn { margin-top: 10px; background-color:rgb(255, 195, 66); font-size:15px;}
-    .main-header { padding: 15px 0; background-color: #f8f8f8; border-bottom: 1px solid #e7e7e7;}
+    .design-btn { margin-top: 10px; background-color:rgb(255, 195, 66); font-size:15px; cursor: url('one-finger-32.ico'), grab;}
     .logo-emoji { font-size: 24px; }
     .header-right { margin-top: 8px; }
-    .products-section { margin-top: 30px; }
+    
     .main-footer { text-align: center; padding: 20px 0; margin-top: 40px; background-color: #f8f8f8; border-top: 1px solid #e7e7e7;}
+    .left,.right {cursor: url('one-finger-32.ico'), grab;}
   </style>
 </head>
 <body>
 
-  <header class="navbar navbar-default navbar-static-top main-header">
-    <div class="container">
-      <div class="navbar-header">
-        <a class="navbar-brand logo" href="#">
-          <span class="logo-emoji">👍</span> LIKE
+<header class="main-header">
+    <div class="header-container">
+        <a href="#" class="header-brand">
+            <img src="logo.jpg" alt="logo" id="logo">
+            <span>LIKE</span>
         </a>
-      </div>
-      <div class="header-right pull-right">
-        <a href="#" class="header-link">Ügyfélszolgálat</a>
-        <a href="#" class="cart-icon" aria-label="Kosár">
-        </a>
-      </div>
-    </div>
-  </header>
 
-  <div class="container ">
-    <div id="myCarousel" class="carousel slide emoji_carousel" data-ride="carousel">
+        <div>
+            <a href="support.html" class="header-link">
+                Ügyfélszolgálat
+            </a>
+        </div>
+    </div>
+</header>
+
+  <div id="myCarousel" class="carousel slide emoji_carousel" data-ride="carousel">
       <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
         <li data-target="#myCarousel" data-slide-to="2"></li>
       </ol>
-
+ 
       <div class="carousel-inner">
         <div class="item active">
-          <div style="height: 300px; background-color: #e9ecef; display: flex; align-items: center; justify-content: center;">
-            <img src="banner_mug.png" alt="Bögre">
-          </div>
+          <img src="carousel1.png" alt="Párna">
         </div>
-
+ 
         <div class="item">
-          <div style="height: 300px; background-color: #e9ecef; display: flex; align-items: center; justify-content: center;">
-            <img src="banner_parna.png" alt="Párna">
-          </div>
+          <img src="carousel2.png" alt="Táska">
         </div>
       
         <div class="item">
-          <div style="height: 300px; background-color: #e9ecef; display: flex; align-items: center; justify-content: center;">
-            <img src="banner_tote.png" alt="Oldaltáska">
-          </div>
+          <img src="carousel3.png" alt="Póló">
         </div>
       </div>
-
+ 
       <a class="left carousel-control" href="#myCarousel" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left"></span>
         <span class="sr-only">Previous</span>
@@ -108,9 +167,9 @@
         <span class="sr-only">Next</span>
       </a>
     </div>
-  </div>
-
+  <h1 class="mainTitle">Termékeink</h1>
   <main class="container products-section">
+    
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-4">
         <div class="product-card">
@@ -289,5 +348,19 @@
     </div>
   </footer>
 
+  <script>
+      const cards = document.querySelectorAll('.product-card');
+    
+    cards.forEach(card => {
+      card.style.transition = 'transform 0.4s ease';
+      
+      card.onmouseenter = () => {
+        card.style.transform = 'scale(1.05)';
+      };  
+      card.onmouseleave = () => {
+        card.style.transform = 'scale(1)';
+      };
+    });
+  </script>  
 </body>
 </html>
