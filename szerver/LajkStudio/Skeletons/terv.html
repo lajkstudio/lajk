@@ -103,6 +103,13 @@
 
 
             <div class="panel panel-default">
+                <div class="panel-body text-center">
+                    
+                </div>
+            </div>
+
+
+            <div class="panel panel-default">
                 <div id="emoji-planner" class="panel-body text-center">
                     <img src="{{img}}" alt="{{name}}" class="product-kep">
                 </div>
@@ -111,32 +118,30 @@
 
             <div class="panel panel-default">
                 <div class="panel-body text-center">
-                    <h5><strong>Válaszd ki mit szeretnél rátenni!</strong></h5>
+                    <h5><strong>Válaszd ki mit szeretnél rátenni és húzd a kívánt helyre!</strong><br>(jobb kattintás = törlés)</h5>
                     <div class="emoji-container">
-                        <button class="btn btn-default" type="button" onclick="incrementEmojies(this.innerText)">👍
+                        <button class="btn btn-default" type="button" onclick="incrementEmojis(this.innerText)">👍
                         </button>
-                        <button class="btn btn-default" type="button" onclick="incrementEmojies(this.innerText)">😘
+                        <button class="btn btn-default" type="button" onclick="incrementEmojis(this.innerText)">😘
                         </button>
-                        <button class="btn btn-default" type="button" onclick="incrementEmojies(this.innerText)">☺️
+                        <button class="btn btn-default" type="button" onclick="incrementEmojis(this.innerText)">☺️
                         </button>
-                        <button class="btn btn-default" type="button" onclick="incrementEmojies(this.innerText)">😍
+                        <button class="btn btn-default" type="button" onclick="incrementEmojis(this.innerText)">😍
                         </button>
-                        <button class="btn btn-default" type="button" onclick="incrementEmojies(this.innerText)">🎂
+                        <button class="btn btn-default" type="button" onclick="incrementEmojis(this.innerText)">🎂
                         </button>
-                        <button class="btn btn-default" type="button" onclick="incrementEmojies(this.innerText)">💩
+                        <button class="btn btn-default" type="button" onclick="incrementEmojis(this.innerText)">💩
                         </button>
-                        <button class="btn btn-default" type="button" onclick="incrementEmojies(this.innerText)">💐
+                        <button class="btn btn-default" type="button" onclick="incrementEmojis(this.innerText)">💐
                         </button>
-                        <button class="btn btn-default" type="button" onclick="incrementEmojies(this.innerText)">❤️
+                        <button class="btn btn-default" type="button" onclick="incrementEmojis(this.innerText)">❤️
                         </button>
-                        <button class="btn btn-default" type="button" onclick="incrementEmojies(this.innerText)">🐷
+                        <button class="btn btn-default" type="button" onclick="incrementEmojis(this.innerText)">🐷
                         </button>
                     </div>
                 </div>
             </div>
-
         </div>
-
 
         <div class="col-xs-12 col-md-6">
             <div class="panel panel-default">
@@ -213,20 +218,24 @@
         totalPriceE.innerText = String(basePrice + emojiPrice * visibleLength(emojis));
     }
 
-    function incrementEmojies(emoji) {
+    function incrementEmojis(emoji) {
         emojis += emoji;
         setPrices();
 
         emojiPlanner.insertAdjacentHTML('beforeend', '<div class="draggable">' + emoji + '</div>');
     }
 
-    function resetEmojies(newEmojiCount) {
+    function resetEmojis(newEmojiCount) {
         emojis = "";
         setPrices();
+
+        const allDraggables = emojiPlanner.querySelectorAll('.draggable');
+        allDraggables.forEach(draggable => {
+            draggable.remove();
+        });
     }
 
     document.addEventListener("DOMContentLoaded", setPrices);
-
     
     emojiPlanner.addEventListener('mousedown', (e) => {
         const clickedDraggable = e.target.closest('.draggable');
@@ -282,6 +291,20 @@
             draggable.style.left = `${newX}px`;
             draggable.style.top = `${newY}px`;
         });
+    });
+
+    emojiPlanner.addEventListener('contextmenu', (e) => {
+        const clickedDraggable = e.target.closest('.draggable');
+
+        if (!clickedDraggable) return;
+
+        e.preventDefault();
+
+        emojis = emojis.replace(clickedDraggable.innerText, "");
+
+        clickedDraggable.remove();
+        
+        setPrices();
     });
 </script>
 </body>
