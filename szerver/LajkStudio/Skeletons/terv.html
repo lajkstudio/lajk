@@ -1,179 +1,288 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-  <title>{{name}} személyre szabása</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  
-  <style>
-    body{
-      background-image: url("/fohatter.png");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-color: #fcfaad;
-    }
-    h4{
-      font-weight: bold;
-    }
-    #logonev{
-      color: #e5d200;
-      font-weight: bold;
-    }
-    #ugyfelszolgalat{
-      color: #e5d200;
-      font-weight: bold;
-    }
-    
-    .product-kep {
-      width: 100%;
-    }
-  </style>
+    <title>{{name}} személyre szabása</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+        body {
+            background-image: url("/fohatter.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #fcfaad;
+        }
+
+        h4 {
+            font-weight: bold;
+        }
+
+        #logonev {
+            color: #e5d200;
+            font-weight: bold;
+        }
+
+        #ugyfelszolgalat {
+            color: #e5d200;
+            font-weight: bold;
+        }
+
+        .product-kep {
+            width: 100%;
+        }
+
+        .emoji-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .emoji-container .btn {
+            flex: 0 0 auto;
+            min-width: 55px;
+            font-size: 24px;
+            padding: 8px 12px;
+        }
+        
+        #emoji-planner {
+            overflow: hidden;
+            user-select: none;
+            container-type: inline-size;
+            position: relative;
+        }
+
+        .draggable {
+            flex: 0 0 auto;
+            width: 6cqw;
+            height: 6cqw;
+            top: calc(50% - 3cqw);
+            left: calc(50% - 3cqw);
+            font-size: 5cqw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            cursor: grab;
+            border: none;
+            background-color: transparent;
+            z-index: 9998;
+        }
+
+        .draggable:active {
+            cursor: grabbing;
+        }
+    </style>
 </head>
 <body>
-  <header class="navbar navbar-default navbar-static-top">
+<header class="navbar navbar-default navbar-static-top">
     <div class="container">
-      <div class="navbar-header">
-        <a class="navbar-brand text-warning" href="/" id="logonev">
-          👍 LIKE
-        </a>
-      </div>
-      <div class="pull-right">
-        <a href="#" class="text-warning navbar-text" id="ugyfelszolgalat">Ügyfélszolgálat</a>
-      </div>
+        <div class="navbar-header">
+            <a class="navbar-brand text-warning" href="/" id="logonev">
+                👍 LIKE
+            </a>
+        </div>
+        <div class="pull-right">
+            <a href="#" class="text-warning navbar-text" id="ugyfelszolgalat">Ügyfélszolgálat</a>
+        </div>
     </div>
-  </header>
+</header>
 
 
-
-  <main class="container">
+<main class="container">
     <div class="row">
-      <div class="col-xs-12 col-md-6">
-        <div class="well well-sm" style="background: #fdfdd5">
-          <h4><em>{{name}} személyre szabása</em></h4>
-        </div>
-
-
-        <div class="panel panel-default">
-          <div class="panel-body text-center">
-            <img src="{{img}}" alt="{{name}}" class="product-kep">
-          </div>
-        </div>
-
-
-
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <h5><strong>Válaszd ki mit szeretnél rátenni!</strong></h5>
-            <div class="row text-center">
-              <div class="col-xs-2"><button class="btn btn-default btn-block" type="button" onclick="incrementEmojies(this.innerText)">👍</button></div>
-              <div class="col-xs-2"><button class="btn btn-default btn-block" type="button" onclick="incrementEmojies(this.innerText)">😘</button></div>
-              <div class="col-xs-2"><button class="btn btn-default btn-block" type="button" onclick="incrementEmojies(this.innerText)">☺️</button></div>
-            <div class="col-xs-2"><button class="btn btn-default btn-block" type="button" onclick="incrementEmojies(this.innerText)">😍</button></div>
-              <div class="col-xs-2"><button class="btn btn-default btn-block" type="button" onclick="incrementEmojies(this.innerText)">🎂</button></div>
-              <div class="col-xs-2"><button class="btn btn-default btn-block" type="button" onclick="incrementEmojies(this.innerText)">💩</button></div>
+        <div class="col-xs-12 col-md-6">
+            <div class="well well-sm" style="background: #fdfdd5">
+                <h4><em>{{name}} személyre szabása</em></h4>
             </div>
-            <br>
-            
-            <div class="row text-center">
-              <div class="col-xs-2"><button class="btn btn-default btn-block" type="button" onclick="incrementEmojies(this.innerText)">💐</button></div>
-              <div class="col-xs-2"><button class="btn btn-default btn-block" type="button" onclick="incrementEmojies(this.innerText)">❤️</button></div>
-              <div class="col-xs-2"><button class="btn btn-default btn-block" type="button" onclick="incrementEmojies(this.innerText)">🐷</button></div>
+
+
+            <div class="panel panel-default">
+                <div id="emoji-planner" class="panel-body text-center">
+                    <img src="{{img}}" alt="{{name}}" class="product-kep">
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
 
 
-
-
-      <div class="col-xs-12 col-md-6">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <h5 class="text-center"><strong>Tételek</strong></h5>
-            <div class="row">
-              <div class="col-xs-7">
-              </div>
-              <div class="col-xs-5 text-right">
-                <p>
-                  <strong>Alapár:</strong><br>
-                  <span class="text-warning"><em id="termek-ar">???</em> Ft</span>
-                </p>
-                <p>
-                  <strong>Kiválasztott emojik:</strong><br>
-                  <span class="text-warning"><em id="emoji-szam">???</em> db</span><br>
-                  <span class="text-warning"><em id="terv-ar">???</em> Ft</span>
-                </p>
-                <p>
-                  <strong>Összesen:</strong><br>
-                  <span class="text-warning"><em id="teljes-ar">???</em> Ft</span>
-                </p>
-                <button class="btn btn-warning btn-block" type="button">
-                  <span class="glyphicon glyphicon-shopping-cart"></span> Kosárba teszem👍
-                </button>
-              </div>
+            <div class="panel panel-default">
+                <div class="panel-body text-center">
+                    <h5><strong>Válaszd ki mit szeretnél rátenni!</strong></h5>
+                    <div class="emoji-container">
+                        <button class="btn btn-default" type="button" onclick="incrementEmojies(this.innerText)">👍
+                        </button>
+                        <button class="btn btn-default" type="button" onclick="incrementEmojies(this.innerText)">😘
+                        </button>
+                        <button class="btn btn-default" type="button" onclick="incrementEmojies(this.innerText)">☺️
+                        </button>
+                        <button class="btn btn-default" type="button" onclick="incrementEmojies(this.innerText)">😍
+                        </button>
+                        <button class="btn btn-default" type="button" onclick="incrementEmojies(this.innerText)">🎂
+                        </button>
+                        <button class="btn btn-default" type="button" onclick="incrementEmojies(this.innerText)">💩
+                        </button>
+                        <button class="btn btn-default" type="button" onclick="incrementEmojies(this.innerText)">💐
+                        </button>
+                        <button class="btn btn-default" type="button" onclick="incrementEmojies(this.innerText)">❤️
+                        </button>
+                        <button class="btn btn-default" type="button" onclick="incrementEmojies(this.innerText)">🐷
+                        </button>
+                    </div>
+                </div>
             </div>
-          </div>
+
         </div>
 
 
+        <div class="col-xs-12 col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h5 class="text-center"><strong>Tételek</strong></h5>
+                    <div class="row">
+                        <div class="col-xs-7">
+                        </div>
+                        <div class="col-xs-5 text-right">
+                            <p>
+                                <strong>Alapár:</strong><br>
+                                <span class="text-warning"><em id="termek-ar">???</em> Ft</span>
+                            </p>
+                            <p>
+                                <strong>Kiválasztott emojik:</strong><br>
+                                <span class="text-warning"><em id="emoji-szam">???</em> db</span><br>
+                                <span class="text-warning"><em id="terv-ar">???</em> Ft</span>
+                            </p>
+                            <p>
+                                <strong>Összesen:</strong><br>
+                                <span class="text-warning"><em id="teljes-ar">???</em> Ft</span>
+                            </p>
+                            <button class="btn btn-warning btn-block" type="button">
+                                <span class="glyphicon glyphicon-shopping-cart"></span> Kosárba teszem👍
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <div class="well well-sm text-warning" style="background: #fdfdd5">
-          <span class="glyphicon glyphicon-lock"></span> <strong>VIP matrica csomag</strong>
+
+            <div class="well well-sm text-warning" style="background: #fdfdd5">
+                <span class="glyphicon glyphicon-lock"></span> <strong>VIP matrica csomag</strong>
+            </div>
+
+
+            <div class="well text-center text-warning">
+                <h2><strong>VIP</strong></h2>
+            </div>
         </div>
-
-
-
-        <div class="well text-center text-warning">
-          <h2><strong>VIP</strong></h2>
-        </div>
-      </div>
     </div>
-  </main>
+</main>
 
 
- <footer class="main-footer">
+<footer class="main-footer">
     <div class="container">
-      <p class="footer-text">LIKE™</p>
+        <p class="footer-text">LIKE™</p>
     </div>
-  </footer>
+</footer>
 
   <script>
     const basePrice = {{price}};
     const emojiPrice = {{emoji_price}};
-    let emojies = "";
-    
+    let emojis = "";
+
     const basePriceE = document.getElementById("termek-ar");
     const customPriceE = document.getElementById("terv-ar");
     const emojiCountE = document.getElementById("emoji-szam");
     const totalPriceE = document.getElementById("teljes-ar");
+    
+    const emojiPlanner = document.getElementById("emoji-planner");
+    let activeDraggable = null;
+    let offsetX = 0;
+    let offsetY = 0;
 
     function visibleLength(str) {
-      return [...new Intl.Segmenter().segment(str)].length
-    }
-    
-    function setPrices(){
-      basePriceE.innerText = basePrice;
-      customPriceE.innerText = String(emojiPrice * visibleLength(emojies));
-      emojiCountE.innerText = String(visibleLength(emojies));
-      totalPriceE.innerText = String(basePrice + emojiPrice * visibleLength(emojies));
-    }
-    
-    function incrementEmojies(emoji){
-      emojies += emoji;
-      setPrices();
+        return [...new Intl.Segmenter().segment(str)].length
     }
 
-    function resetEmojies(newEmojiCount){
-      emojies = "";
-      setPrices();
+    function setPrices() {
+        basePriceE.innerText = basePrice;
+        customPriceE.innerText = String(emojiPrice * visibleLength(emojis));
+        emojiCountE.innerText = String(visibleLength(emojis));
+        totalPriceE.innerText = String(basePrice + emojiPrice * visibleLength(emojis));
+    }
+
+    function incrementEmojies(emoji) {
+        emojis += emoji;
+        setPrices();
+
+        emojiPlanner.insertAdjacentHTML('beforeend', '<div class="draggable">' + emoji + '</div>');
+    }
+
+    function resetEmojies(newEmojiCount) {
+        emojis = "";
+        setPrices();
     }
 
     document.addEventListener("DOMContentLoaded", setPrices);
-  </script>
 
+    
+    emojiPlanner.addEventListener('mousedown', (e) => {
+        const clickedDraggable = e.target.closest('.draggable');
+
+        if (!clickedDraggable) return;
+
+        activeDraggable = clickedDraggable;
+
+        const rect = activeDraggable.getBoundingClientRect();
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+
+        const allDraggables = document.querySelectorAll('.draggable');
+        allDraggables.forEach(d => d.style.zIndex = '9998');
+        activeDraggable.style.zIndex = '9999';
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!activeDraggable) return;
+
+        const containerRect = emojiPlanner.getBoundingClientRect();
+        let newX = (e.clientX - containerRect.left - emojiPlanner.clientLeft) - offsetX;
+        let newY = (e.clientY - containerRect.top - emojiPlanner.clientTop) - offsetY;
+
+        const maxX = emojiPlanner.clientWidth - activeDraggable.offsetWidth;
+        const maxY = emojiPlanner.clientHeight - activeDraggable.offsetHeight;
+
+        newX = Math.max(0, Math.min(newX, maxX));
+        newY = Math.max(0, Math.min(newY, maxY));
+
+        activeDraggable.style.left = `${newX}px`;
+        activeDraggable.style.top = `${newY}px`;
+    });
+    
+    document.addEventListener('mouseup', () => {
+        activeDraggable = null;
+    });
+
+    window.addEventListener('resize', () => {
+        const draggables = document.querySelectorAll('.draggable');
+        if (draggables.length === 0) return;
+
+        draggables.forEach(draggable => {
+            let currentX = draggable.offsetLeft;
+            let currentY = draggable.offsetTop;
+
+            const maxX = emojiPlanner.clientWidth - draggable.offsetWidth;
+            const maxY = emojiPlanner.clientHeight - draggable.offsetHeight;
+
+            let newX = Math.max(0, Math.min(currentX, maxX));
+            let newY = Math.max(0, Math.min(currentY, maxY));
+
+            draggable.style.left = `${newX}px`;
+            draggable.style.top = `${newY}px`;
+        });
+    });
+</script>
 </body>
 </html>
