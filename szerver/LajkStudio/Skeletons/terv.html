@@ -8,6 +8,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="icon" href="favicon_io/favicon.ico" type="image/x-icon">
+    <link rel="manifest" href="favicon_io/site.webmanifest">
+
     <style>
         body {
             background-image: url("/fohatter.png");
@@ -77,6 +83,45 @@
         .draggable:active {
             cursor: grabbing;
         }
+        
+        #color-planner {
+            line-height: 2.5;
+        }
+        
+        #color-planner a {
+            border: 0;
+            border-radius: 3px;
+            background-color: #00000022;
+            font-size: 17px;
+            color: black;
+            padding: 6px 30px;
+            margin-right: 10px;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        #color-planner a:active {
+            background-color: #ffff0011;
+        }
+
+        #color-planner a span {
+            border: 0;
+            border-radius: 20px;
+            padding-left: 20px;
+            margin-left: 3px;
+        }
+        
+        .beige {
+            background-color: #fcfaad;
+        }
+        
+        .white {
+            background-color: white;
+        }
+        
+        .black {
+            background-color: black;
+        }
     </style>
 </head>
 <body>
@@ -103,15 +148,18 @@
 
 
             <div class="panel panel-default">
-                <div class="panel-body text-center">
-                    
+                <div id="emoji-planner" class="panel-body text-center">
+                    <img src="{{img}}" alt="{{name}}" class="product-kep">
                 </div>
             </div>
 
 
             <div class="panel panel-default">
-                <div id="emoji-planner" class="panel-body text-center">
-                    <img src="{{img}}" alt="{{name}}" class="product-kep">
+                <div id="color-planner" class="panel-body text-center">
+                    <p><strong>Szín</strong></p>
+                    <a href="../1/">bézs<span class="beige"></span></a>
+                    <a href="../2/">fehér<span class="white"></span></a>
+                    <a href="../3/">fekete<span class="black"></span></a>
                 </div>
             </div>
 

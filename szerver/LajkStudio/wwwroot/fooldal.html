@@ -8,282 +8,384 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="fooldal.css">
-  <link rel="stylesheet" href="carousel.css">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+  <link rel="icon" href="favicon_io/favicon.ico" type="image/x-icon">
+  <link rel="manifest" href="favicon_io/site.webmanifest">
   <style>
     .image-placeholder img {
-        max-width: 100%;
-        height: auto;
-        display: block;
-        object-fit: contain;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .carousel-inner {
+      width: 200%;
+      overflow: hidden;
+      align-content: center;
     }
 
     .carousel-inner .item img {
-        max-width: 100%;
-        height: auto;
-        margin: 0 auto; 
+      max-width: 100%;
+      height: auto;
+
     }
 
+
     .product-card {
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 15px;
-        margin-bottom: 20px;
-        text-align: center;
-        background-color: #fff;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      text-align: center;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
     .image-placeholder {
-        height: 200px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #f4f4f4;
-        margin-bottom: 15px;
-        border-radius: 4px;
-        overflow: hidden;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f4f4f4;
+      margin-bottom: 15px;
+      border-radius: 4px;
+      overflow: hidden;
     }
+
+    header.main-header {
+      display: block;
+      width: 100%;
+      padding: 12px 0;
+      margin: 0;
+      background-color: #fff;
+      border: none;
+      border-bottom: 1px solid rgba(255, 193, 7, 0.25);
+      border-radius: 0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    header.main-header .header-container {
+      width: 100%;
+      padding: 0 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-sizing: border-box;
+    }
+
+    header.main-header .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      height: auto;
+      color: #212529;
+      font-size: 30px;
+      font-weight: 700;
+      line-height: normal;
+      text-decoration: none;
+    }
+
+    header.main-header #logo {
+      display: block;
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+    }
+
+    header.main-header .header-link {
+      color: #212529;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    header.main-header .header-link:hover {
+      color: #212529;
+      text-decoration: none;
+    }
+
     .product-title { margin-top: 0; font-size: 18px;}
-    .design-btn { margin-top: 10px; background-color:rgb(255, 195, 66); font-size:15px;}
-    .main-header { padding: 15px 0; background-color: #f8f8f8; border-bottom: 1px solid #e7e7e7;}
-    .logo-emoji { font-size: 24px; }
-    .header-right { margin-top: 8px; }
-    .products-section { margin-top: 30px; }
+    .design-btn { margin-top: 10px; background-color:rgb(255, 195, 66); font-size:15px; cursor: url('one-finger-32.ico'), grab;}
+
     .main-footer { text-align: center; padding: 20px 0; margin-top: 40px; background-color: #f8f8f8; border-top: 1px solid #e7e7e7;}
+    .left,.right {cursor: url('one-finger-32.ico'), grab;}
+
+    
+    .emoji_carousel{
+      border-top: white 5px solid;
+      border-bottom: white 5px solid;
+      margin-top: 30px;
+      margin-left: 0;
+      width: 100%;
+    }
+
+    #myCarousel{
+      margin-top: 0;
+    }
+
+    .carousel, .slide {
+      margin-top: 0;
+    }
+
+    .emoji_carousel .carousel-inner{
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .emoji_carousel .carousel-inner .item img{
+
+      width: 100%;
+      max-width: none;
+      height: auto;
+    }
   </style>
 </head>
 <body>
 
-  <header class="navbar navbar-default navbar-static-top main-header">
-    <div class="container">
-      <div class="navbar-header">
-        <a class="navbar-brand logo" href="#">
-          <span class="logo-emoji">👍</span> LIKE
-        </a>
-      </div>
-      <div class="header-right pull-right">
-        <a href="#" class="header-link">Ügyfélszolgálat</a>
-        <a href="#" class="cart-icon" aria-label="Kosár">
-        </a>
-      </div>
-    </div>
-  </header>
+<header class="main-header">
+  <div class="header-container">
+    <a href="#" class="header-brand">
+      <img src="logo.jpg" alt="logo" id="logo">
+      <span>LIKE</span>
+    </a>
 
-  <div class="container ">
-    <div id="myCarousel" class="carousel slide emoji_carousel" data-ride="carousel">
-      <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-      </ol>
-
-      <div class="carousel-inner">
-        <div class="item active">
-          <div style="height: 300px; background-color: #e9ecef; display: flex; align-items: center; justify-content: center;">
-            <img src="/media/banner_mug.png" alt="Bögre">
-          </div>
-        </div>
-
-        <div class="item">
-          <div style="height: 300px; background-color: #e9ecef; display: flex; align-items: center; justify-content: center;">
-            <img src="/media/banner_parna.png" alt="Párna">
-          </div>
-        </div>
-      
-        <div class="item">
-          <div style="height: 300px; background-color: #e9ecef; display: flex; align-items: center; justify-content: center;">
-            <img src="/media/banner_tote.png" alt="Oldaltáska">
-          </div>
-        </div>
-      </div>
-
-      <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="right carousel-control" href="#myCarousel" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right"></span>
-        <span class="sr-only">Next</span>
+    <div>
+      <a href="support.html" class="header-link">
+        Ügyfélszolgálat
       </a>
     </div>
   </div>
+</header>
 
-  <main class="container products-section">
-    <div class="row">
-      <div class="col-xs-12 col-sm-6 col-md-4">
-        <div class="product-card">
-          <div class="product-info">
-            <h3 class="product-title">Póló</h3>
-            <div class="product-image-container">
-              <div class="image-placeholder">
-                <img src="/media/termek_01.png" alt="Póló" >
-              </div>
-            </div>
-            <a href="/tervezes/1/1/" class="btn btn-warning design-btn">Tervezés!</a>
-          </div>
-        </div>
-      </div>
+<div id="myCarousel" class="carousel slide emoji_carousel" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
 
-      <div class="col-xs-12 col-sm-6 col-md-4">
-        <div class="product-card">
-          <div class="product-info">
-            <h3 class="product-title">Tornazsák</h3>
-            <div class="product-image-container">
-              <div class="image-placeholder">
-                <img src="/media/termek_02.png" alt="Tornazsák" >
-              </div>
-            </div>
-            <a href="/tervezes/2/1/" class="btn btn-warning design-btn">Tervezés!</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-        <div class="product-card">
-          <div class="product-info">
-            <h3 class="product-title">Zokni</h3>
-            <div class="product-image-container">
-              <div class="image-placeholder">
-                <img src="/media/termek_03.png" alt="Zokni" >
-              </div>
-            </div>
-            <a href="/tervezes/3/1/" class="btn btn-warning design-btn">Tervezés!</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-        <div class="product-card">
-          <div class="product-info">
-            <h3 class="product-title">Poszter</h3>
-            <div class="product-image-container">
-              <div class="image-placeholder">
-                <img src="/media/termek_04.png" alt="Poszter" >
-                </div>
-            </div>
-            <a href="/tervezes/4/1/" class="btn btn-warning design-btn">Tervezés!</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-        <div class="product-card">
-          <div class="product-info">
-            <h3 class="product-title">Terítő</h3>
-            <div class="product-image-container">
-              <div class="image-placeholder">
-                <img src="/media/termek_05.png" alt="Terítő" >
-              </div>
-            </div>
-            <a href="/tervezes/5/1/" class="btn btn-warning design-btn">Tervezés!</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-        <div class="product-card">
-          <div class="product-info">
-            <h3 class="product-title">Párna</h3>
-            <div class="product-image-container">
-              <div class="image-placeholder">
-                <img src="/media/termek_06.png" alt="Párna" >
-              </div>
-            </div>
-            <a href="/tervezes/6/1/" class="btn btn-warning design-btn">Tervezés!</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-        <div class="product-card">
-          <div class="product-info">
-            <h3 class="product-title">Törölköző</h3>
-            <div class="product-image-container">
-              <div class="image-placeholder">
-                <img src="/media/termek_07.png" alt="Törölköző" >
-              </div>
-            </div>
-            <a href="/tervezes/7/1/" class="btn btn-warning design-btn">Tervezés!</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-        <div class="product-card">
-          <div class="product-info">
-            <h3 class="product-title">Bögre</h3>
-            <div class="product-image-container">
-              <div class="image-placeholder">
-                <img src="/media/termek_08.png" alt="Bögre" >
-                </div>
-            </div>
-            <a href="/tervezes/8/1/" class="btn btn-warning design-btn">Tervezés!</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-        <div class="product-card">
-          <div class="product-info">
-            <h3 class="product-title">Ágyneműhuzat</h3>
-            <div class="product-image-container">
-              <div class="image-placeholder">
-                <img src="/media/termek_09.png" alt="Ágyneműhuzat" >
-              </div>
-            </div>
-            <a href="/tervezes/9/1/" class="btn btn-warning design-btn">Tervezés!</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-        <div class="product-card">
-          <div class="product-info">
-            <h3 class="product-title">Nadrág</h3>
-            <div class="product-image-container">
-              <div class="image-placeholder">
-                <img src="/media/termek_10.png" alt="Nadrág" >
-              </div>
-            </div>
-            <a href="/tervezes/10/1/" class="btn btn-warning design-btn">Tervezés!</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-        <div class="product-card">
-          <div class="product-info">
-            <h3 class="product-title">Sapka</h3>
-            <div class="product-image-container">
-              <div class="image-placeholder">
-                <img src="/media/termek_11.png" alt="Sapka" >
-              </div>
-            </div>
-            <a href="/tervezes/11/1/" class="btn btn-warning design-btn">Tervezés!</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-        <div class="product-card">
-          <div class="product-info">
-            <h3 class="product-title">Oldaltáska</h3>
-            <div class="product-image-container">
-              <div class="image-placeholder">
-                <img src="/media/termek_12.png" alt="Oldaltáska" >
-              </div>
-            </div>
-            <a href="/tervezes/12/1/" class="btn btn-warning design-btn">Tervezés!</a>
-          </div>
-        </div>
-      </div>
-
+  <div class="carousel-inner">
+    <div class="item active">
+      <img src="media/carousel1.png" alt="Párna">
     </div>
-  </main>
 
-  <footer class="main-footer">
-    <div class="container">
-      <p class="footer-text">LIKE™</p>
+    <div class="item">
+      <img src="media/carousel2.png" alt="Táska">
     </div>
-  </footer>
+
+    <div class="item">
+      <img src="media/carousel3.png" alt="Póló">
+    </div>
+  </div>
+
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+<h1 class="mainTitle">Termékeink</h1>
+<main class="container products-section">
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-4">
+      <div class="product-card">
+        <div class="product-info">
+          <h3 class="product-title">Póló</h3>
+          <div class="product-image-container">
+            <div class="image-placeholder">
+              <img src="media/termek_01.png" alt="Póló" >
+            </div>
+          </div>
+          <a href="/tervezes/1/1/" class="btn btn-warning design-btn">Tervezés!</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-4">
+      <div class="product-card">
+        <div class="product-info">
+          <h3 class="product-title">Tornazsák</h3>
+          <div class="product-image-container">
+            <div class="image-placeholder">
+              <img src="media/termek_02.png" alt="Tornazsák" >
+            </div>
+          </div>
+          <a href="/tervezes/2/1/" class="btn btn-warning design-btn">Tervezés!</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-4">
+      <div class="product-card">
+        <div class="product-info">
+          <h3 class="product-title">Zokni</h3>
+          <div class="product-image-container">
+            <div class="image-placeholder">
+              <img src="media/termek_03.png" alt="Zokni" >
+            </div>
+          </div>
+          <a href="/tervezes/3/1/" class="btn btn-warning design-btn">Tervezés!</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-4">
+      <div class="product-card">
+        <div class="product-info">
+          <h3 class="product-title">Poszter</h3>
+          <div class="product-image-container">
+            <div class="image-placeholder">
+              <img src="media/termek_04.png" alt="Poszter" >
+            </div>
+          </div>
+          <a href="/tervezes/4/1/" class="btn btn-warning design-btn">Tervezés!</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-4">
+      <div class="product-card">
+        <div class="product-info">
+          <h3 class="product-title">Terítő</h3>
+          <div class="product-image-container">
+            <div class="image-placeholder">
+              <img src="media/termek_05.png" alt="Terítő" >
+            </div>
+          </div>
+          <a href="/tervezes/5/1/" class="btn btn-warning design-btn">Tervezés!</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-4">
+      <div class="product-card">
+        <div class="product-info">
+          <h3 class="product-title">Párna</h3>
+          <div class="product-image-container">
+            <div class="image-placeholder">
+              <img src="media/termek_06.png" alt="Párna" >
+            </div>
+          </div>
+          <a href="/tervezes/6/1/" class="btn btn-warning design-btn">Tervezés!</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-4">
+      <div class="product-card">
+        <div class="product-info">
+          <h3 class="product-title">Törölköző</h3>
+          <div class="product-image-container">
+            <div class="image-placeholder">
+              <img src="media/termek_07.png" alt="Törölköző" >
+            </div>
+          </div>
+          <a href="/tervezes/7/1/" class="btn btn-warning design-btn">Tervezés!</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-4">
+      <div class="product-card">
+        <div class="product-info">
+          <h3 class="product-title">Bögre</h3>
+          <div class="product-image-container">
+            <div class="image-placeholder">
+              <img src="media/termek_08.png" alt="Bögre" >
+            </div>
+          </div>
+          <a href="/tervezes/8/1/" class="btn btn-warning design-btn">Tervezés!</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-4">
+      <div class="product-card">
+        <div class="product-info">
+          <h3 class="product-title">Ágyneműhuzat</h3>
+          <div class="product-image-container">
+            <div class="image-placeholder">
+              <img src="media/termek_09.png" alt="Ágyneműhuzat" >
+            </div>
+          </div>
+          <a href="/tervezes/9/1/" class="btn btn-warning design-btn">Tervezés!</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-4">
+      <div class="product-card">
+        <div class="product-info">
+          <h3 class="product-title">Nadrág</h3>
+          <div class="product-image-container">
+            <div class="image-placeholder">
+              <img src="media/termek_10.png" alt="Nadrág" >
+            </div>
+          </div>
+          <a href="/tervezes/10/1/" class="btn btn-warning design-btn">Tervezés!</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-4">
+      <div class="product-card">
+        <div class="product-info">
+          <h3 class="product-title">Sapka</h3>
+          <div class="product-image-container">
+            <div class="image-placeholder">
+              <img src="media/termek_11.png" alt="Sapka" >
+            </div>
+          </div>
+          <a href="/tervezes/11/1/" class="btn btn-warning design-btn">Tervezés!</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-4">
+      <div class="product-card">
+        <div class="product-info">
+          <h3 class="product-title">Oldaltáska</h3>
+          <div class="product-image-container">
+            <div class="image-placeholder">
+              <img src="media/termek_12.png" alt="Oldaltáska" >
+            </div>
+          </div>
+          <a href="/tervezes/12/1/" class="btn btn-warning design-btn">Tervezés!</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="main-footer">
+  <div class="container">
+    <p class="footer-text">LIKE™</p>
+  </div>
+</footer>
+
+<script>
+  const cards = document.querySelectorAll('.product-card');
+
+  cards.forEach(card => {
+    card.style.transition = 'transform 0.4s ease';
+
+    card.onmouseenter = () => {
+      card.style.transform = 'scale(1.05)';
+    };
+    card.onmouseleave = () => {
+      card.style.transform = 'scale(1)';
+    };
+  });
+</script>
 </body>
 </html>
