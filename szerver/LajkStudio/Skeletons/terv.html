@@ -8,13 +8,77 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
-    <link rel="icon" href="favicon_io/favicon.ico" type="image/x-icon">
-    <link rel="manifest" href="favicon_io/site.webmanifest">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png">
+    <link rel="icon" href="/favicon_io/favicon.ico" type="image/x-icon">
+    <link rel="manifest" href="/favicon_io/site.webmanifest">
 
     <style>
+        header.main-header {
+            display: block;
+            width: 100%;
+            padding: 12px 0;
+            margin: 0 0 24px 0;
+            background-color: #fff;
+            border: none;
+            border-bottom: 1px solid rgba(255, 193, 7, 0.25);
+            border-radius: 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        header.main-header .header-container {
+            width: 100%;
+            padding: 0 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        header.main-header .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0;
+            padding: 0;
+            height: auto;
+            color: #212529;
+            font-size: 30px;
+            font-weight: 700;
+            line-height: normal;
+            text-decoration: none;
+        }
+
+        header.main-header #logo {
+            display: block;
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+        }
+
+        header.main-header .header-link {
+            color: #212529;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        header.main-header .header-link:hover {
+            color: #212529;
+            text-decoration: none;
+        }
+
+        .main-footer {
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            background-color: #f8f8f8;
+            border-top: 1px solid #e7e7e7;
+        }
+        
         body {
             background-image: url("/fohatter.png");
             background-size: cover;
@@ -24,16 +88,6 @@
         }
 
         h4 {
-            font-weight: bold;
-        }
-
-        #logonev {
-            color: #e5d200;
-            font-weight: bold;
-        }
-
-        #ugyfelszolgalat {
-            color: #e5d200;
             font-weight: bold;
         }
 
@@ -125,15 +179,17 @@
     </style>
 </head>
 <body>
-<header class="navbar navbar-default navbar-static-top">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand text-warning" href="/" id="logonev">
-                👍 LIKE
+<header class="main-header">
+    <div class="header-container">
+        <a href="/" class="header-brand">
+            <img src="/logo.jpg" alt="logo" id="logo">
+            <span>LIKE</span>
+        </a>
+
+        <div>
+            <a href="/ugyfelszolgalat.html" class="header-link">
+                Ügyfélszolgálat
             </a>
-        </div>
-        <div class="pull-right">
-            <a href="#" class="text-warning navbar-text" id="ugyfelszolgalat">Ügyfélszolgálat</a>
         </div>
     </div>
 </header>
@@ -197,6 +253,7 @@
                     <h5 class="text-center"><strong>Tételek</strong></h5>
                     <div class="row">
                         <div class="col-xs-7">
+                            <p id="add-to-cart-response"></p>
                         </div>
                         <div class="col-xs-5 text-right">
                             <p>
@@ -212,7 +269,7 @@
                                 <strong>Összesen:</strong><br>
                                 <span class="text-warning"><em id="teljes-ar">???</em> Ft</span>
                             </p>
-                            <button class="btn btn-warning btn-block" type="button">
+                            <button id="add-to-cart" class="btn btn-warning btn-block" type="button" onclick="addToCart()">
                                 <span class="glyphicon glyphicon-shopping-cart"></span> Kosárba teszem👍
                             </button>
                         </div>
@@ -254,6 +311,9 @@
     let activeDraggable = null;
     let offsetX = 0;
     let offsetY = 0;
+    
+    const addToCartE = document.getElementById("add-to-cart");
+    const addToCartResponse = document.getElementById("add-to-cart-response");
 
     function visibleLength(str) {
         return [...new Intl.Segmenter().segment(str)].length
@@ -264,6 +324,8 @@
         customPriceE.innerText = String(emojiPrice * visibleLength(emojis));
         emojiCountE.innerText = String(visibleLength(emojis));
         totalPriceE.innerText = String(basePrice + emojiPrice * visibleLength(emojis));
+
+        addToCartE.disabled = false;
     }
 
     function incrementEmojis(emoji) {
@@ -299,6 +361,8 @@
         const allDraggables = document.querySelectorAll('.draggable');
         allDraggables.forEach(d => d.style.zIndex = '9998');
         activeDraggable.style.zIndex = '9999';
+
+        addToCartE.disabled = false;
     });
 
     document.addEventListener('mousemove', (e) => {
@@ -316,6 +380,8 @@
 
         activeDraggable.style.left = `${newX}px`;
         activeDraggable.style.top = `${newY}px`;
+
+        addToCartE.disabled = false;
     });
     
     document.addEventListener('mouseup', () => {
@@ -354,6 +420,48 @@
         
         setPrices();
     });
+
+
+    function addToCart() {
+        addToCartResponse.innerHTML = "";
+
+            html2canvas(emojiPlanner).then(canvas => {
+            canvas.toBlob((blob) => {
+                
+                const formData = new FormData();
+                formData.append("DesignImage", blob, "mestermu.png");
+                formData.append("EmojisUsed", visibleLength(emojis));
+                formData.append("TotalPrice", basePrice + emojiPrice * visibleLength(emojis));
+
+                fetch("../add-to-cart", {
+                    method: "POST",
+                    body: formData,
+                    credentials: "same-origin"
+                }).then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Server error: ${response.status}`);
+                    }
+                    console.log("Image successfully saved to database!", response);
+                    addToCartSuccess();
+                }).catch(error => {
+                    console.error("Upload failed", error);
+                    addToCartFailure();
+                });
+
+            }, "image/png");
+        });
+    }
+    
+    function addToCartSuccess() {
+        addToCartE.disabled = true;
+        addToCartResponse.style.color = "green";
+        addToCartResponse.innerHTML = "Az egyedi termékedet sikeresen hozzáadtuk a kosarához! Módosíthatod a terméket, ha újabbat szeretnél a kosárba tenni vagy visszatérhetsz a <a href='/'>főoldalra</a>.";
+    }
+    
+    function addToCartFailure() {
+        addToCartResponse.style.color = "red";
+        addToCartResponse.innerHTML = "Hát erre nem számítottunk! Valami hiba csúszott a rendszerbe a termék kosárhoz adásakor... Hasazz egyet és próbáld újra vagy keresd <a href='/ugyfelszolgalat.html'>ügyfélszolgálatunkat</a>!";
+    }
 </script>
 </body>
 </html>

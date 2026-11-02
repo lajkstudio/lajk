@@ -19,11 +19,16 @@ public class AppDbContext : DbContext
         {
             entity.ToTable("cart");
             
+            entity.Property(e => e.Id)
+                .HasColumnName("id");
+    
             entity.Property(e => e.CreatedAt)
+                .HasColumnName("created_at")
                 .HasColumnType("TIMESTAMP")
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             entity.Property(e => e.UpdatedAt)
+                .HasColumnName("updated_at")
                 .HasColumnType("TIMESTAMP")
                 .HasDefaultValueSql("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
         });
@@ -38,7 +43,7 @@ public class AppDbContext : DbContext
 
             entity.Property(e => e.Img)
                 .HasColumnName("img")
-                .HasColumnType("BLOB")
+                .HasColumnType("MEDIUMBLOB")
                 .IsRequired();
 
             entity.Property(e => e.TotalPrice)

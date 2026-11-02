@@ -58,4 +58,68 @@ public class PersonalizationController : ControllerBase
     {
         return pageCache.GetOrAdd(fileName, path => System.IO.File.ReadAllText(path));
     }
+    
+    [HttpPost("{id}/add-to-cart")]
+    public async Task<IActionResult> AddToCart(int id, [FromForm] AddToCartRequest request)
+    {
+        var item = await _context.Items.FirstOrDefaultAsync(i => i.Id == id);
+        if (item == null) return NotFound();
+        
+        if (request.DesignImage.Length == 0)
+        {
+            return BadRequest("Image is required.");
+        }
+
+        byte[] imageBytes;
+        using (var memoryStream = new MemoryStream())
+        {
+            await request.DesignImage.CopyToAsync(memoryStream);
+            imageBytes = memoryStream.ToArray();
+        }
+
+        var sessionId = Guid.Parse(HttpContext.Session.Id);
+        
+        var cart = await _context.Carts.FirstOrDefaultAsync(c => c.Id == sessionId);
+        
+        if (cart == null)
+        {
+            var newCart = new Cart
+            {
+                Id = sessionId
+            };
+    
+            _context.Carts.Add(newCart);
+        }
+        else
+        {
+            cart.UpdatedAt = DateTime.Now;
+        }
+        await _context.SaveChangesAsync(); 
+        
+        int calculatedTotalPrice = item.Price + (request.EmojisUsed * item.EmojiPriceIncrement);
+
+        if (calculatedTotalPrice != request.TotalPrice)
+        {
+            return BadRequest("Price doesn't match the item and the emojis used.");
+        }
+        
+        var cartItem = new CartItem
+        {
+            CartId = sessionId,
+            Img = imageBytes,
+            TotalPrice = calculatedTotalPrice
+        };
+        
+        _context.CartItems.Add(cartItem);
+        await _context.SaveChangesAsync();
+        
+        return Ok();
+    }
+    
+    public class AddToCartRequest
+    {
+        public required IFormFile DesignImage { get; set; }
+        public required int EmojisUsed { get; set; }
+        public required int TotalPrice { get; set; }
+    }
 }
