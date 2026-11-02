@@ -3,12 +3,19 @@ using LajkStudio.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Register the database connection
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 builder.Services.AddControllers();
+
+builder.Services.AddDistributedMemoryCache(); // Required for default in-memory session storage
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromDays(14);
+    options.Cookie.MaxAge = TimeSpan.FromDays(14);
+    options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
@@ -24,6 +31,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
+
+app.UseSession();
 
 app.UseAuthorization();
 

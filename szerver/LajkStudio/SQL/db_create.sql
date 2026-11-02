@@ -30,3 +30,17 @@ VALUES
     ('Nadrág', '/media/termek_10.png', '/media/termek_10_feher.png', '/media/termek_10_fekete.png', '8800'),
     ('Sapka', '/media/termek_11.png', '/media/termek_11_feher.png', '/media/termek_11_fekete.png', '4900'),
     ('Oldaltáska', '/media/termek_12.png', '/media/termek_12_feher.png', '/media/termek_12_fekete.png', '11300');
+
+CREATE TABLE IF NOT EXISTS cart (
+    id CHAR(36) PRIMARY KEY,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP);
+
+CREATE TABLE IF NOT EXISTS cart_item (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    cart_id CHAR(36) NOT NULL,
+    img BLOB NOT NULL,
+    total_price INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (cart_id) REFERENCES cart(id) ON DELETE CASCADE);

@@ -48,6 +48,9 @@ public class PersonalizationController : ControllerBase
         htmlContent = htmlContent.Replace("{{price}}", item.Price.ToString());
         htmlContent = htmlContent.Replace("{{emoji_price}}", item.EmojiPriceIncrement.ToString());
         
+        HttpContext.Session.SetString("SessionCooked", "yaaaaas");
+        Console.WriteLine("Session: " + HttpContext.Session.Id);
+        
         return Content(htmlContent, "text/html");
     }
 
