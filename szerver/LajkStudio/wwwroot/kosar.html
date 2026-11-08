@@ -51,38 +51,8 @@
                                 <span>🛒</span> Kosár
                             </div>
                             
-                            <div class="d-flex flex-column gap-3">
-                                <div class="border border-warning-subtle rounded-3 p-3 d-flex align-items-center justify-content-between bg-light-subtle">
-                                    <div class="d-flex align-items-center gap-3">
-
-                                        <!-- itt kell képet cserélni -->
-                                        <div class="bg-dark text-white rounded-3 px-3 py-2 text-center fw-bold lh-sm text-nowrap">Termék<br>képe</div>
-                                        <span class="fw-bold">Termék neve</span>
-                                    </div>
-                                    <span class="text-warning-emphasis fw-bold fst-italic fs-5">Ár</span>
-                                </div>
-
-
-                                <div class="border border-warning-subtle rounded-3 p-3 d-flex align-items-center justify-content-between bg-light-subtle">
-                                    <div class="d-flex align-items-center gap-3">
-
-                                         <!-- itt kell képet cserélni -->
-                                        <div class="bg-dark text-white rounded-3 px-3 py-2 text-center fw-bold lh-sm text-nowrap">Termék<br>képe</div>
-                                        <span class="fw-bold">Termék neve</span>
-                                    </div>
-                                    <span class="text-warning-emphasis fw-bold fst-italic fs-5">Ár</span>
-                                </div>
-
-
-
-                                <div class="border border-warning-subtle rounded-3 p-3 d-flex align-items-center justify-content-between bg-light-subtle">
-                                    <div class="d-flex align-items-center gap-3">
-                                         <!-- itt kell képet cserélni -->
-                                        <div class="bg-dark text-white rounded-3 px-3 py-2 text-center fw-bold lh-sm text-nowrap">Termék<br>képe</div>
-                                        <span class="fw-bold">Termék neve</span>
-                                    </div>
-                                    <span class="text-warning-emphasis fw-bold fst-italic fs-5">Ár</span>
-                                </div>
+                            <div id="cart-items" class="d-flex flex-column gap-3">
+                                <div class="text-center text-secondary">Kosár betöltése...</div>
                             </div>
                         </div>
 
@@ -250,7 +220,7 @@
 
                         <div class="bg-warning text-dark p-3 rounded-3 mb-4 d-flex justify-content-between align-items-center fw-bold fs-4">
                             <span>Összesen:</span>
-                            <span class="fst-italic">Ár</span>
+                            <span id="cart-total" class="fst-italic">0 Ft</span>
                         </div>
 
 
@@ -266,6 +236,68 @@
         </div>
     </main>
 
-  
+    <script>
+        const cartItemsElement = document.getElementById("cart-items");
+        const cartTotalElement = document.getElementById("cart-total");
+
+        function createCartItem(item) {
+            const row = document.createElement("div");
+            row.className = "border border-warning-subtle rounded-3 p-3 d-flex align-items-center justify-content-between bg-light-subtle";
+
+            const details = document.createElement("div");
+            details.className = "d-flex align-items-center gap-3";
+
+            const image = document.createElement("img");
+            image.className = "rounded-3";
+            image.width = 72;
+            image.height = 72;
+            image.alt = item.name;
+            image.src = `data:image/png;base64,${item.image}`;
+
+            const name = document.createElement("span");
+            name.className = "fw-bold";
+            name.textContent = item.name;
+
+            const price = document.createElement("span");
+            price.className = "text-warning-emphasis fw-bold fst-italic fs-5";
+            price.textContent = `${item.price.toLocaleString("hu-HU")} Ft`;
+
+            details.append(image, name);
+            row.append(details, price);
+            return row;
+        }
+
+        async function loadCart() {
+            try {
+                const response = await fetch("/cart/items", { credentials: "same-origin" });
+                if (!response.ok) {
+                    throw new Error(`A kosár lekérése sikertelen (${response.status}).`);
+                }
+
+                const cart = await response.json();
+                cartItemsElement.replaceChildren();
+
+                if (cart.items.length === 0) {
+                    const emptyMessage = document.createElement("div");
+                    emptyMessage.className = "text-center text-secondary";
+                    emptyMessage.textContent = "A kosár üres.";
+                    cartItemsElement.append(emptyMessage);
+                } else {
+                    cart.items.forEach(item => cartItemsElement.append(createCartItem(item)));
+                }
+
+                cartTotalElement.textContent = `${cart.total.toLocaleString("hu-HU")} Ft`;
+            } catch (error) {
+                console.error(error);
+                cartItemsElement.replaceChildren();
+                const errorMessage = document.createElement("div");
+                errorMessage.className = "text-center text-danger";
+                errorMessage.textContent = "A kosár betöltése nem sikerült.";
+                cartItemsElement.append(errorMessage);
+            }
+        }
+
+        loadCart();
+    </script>
 </body>
 </html>

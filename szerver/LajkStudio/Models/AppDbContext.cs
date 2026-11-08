@@ -41,6 +41,10 @@ public class AppDbContext : DbContext
                 .HasColumnName("cart_id")
                 .IsRequired();
 
+            entity.Property(e => e.ItemId)
+                .HasColumnName("item_id")
+                .IsRequired();
+
             entity.Property(e => e.Img)
                 .HasColumnName("img")
                 .HasColumnType("MEDIUMBLOB")
@@ -59,6 +63,11 @@ public class AppDbContext : DbContext
                 .WithMany(p => p.CartItems)
                 .HasForeignKey(d => d.CartId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(d => d.Item)
+                .WithMany()
+                .HasForeignKey(d => d.ItemId)
+                .OnDelete(DeleteBehavior.Restrict);
         });
     }
 }

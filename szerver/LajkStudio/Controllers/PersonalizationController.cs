@@ -1,4 +1,6 @@
 using System.Collections.Concurrent;
+using System.Security.Cryptography;
+using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LajkStudio.Models;
@@ -77,7 +79,7 @@ public class PersonalizationController : ControllerBase
             imageBytes = memoryStream.ToArray();
         }
 
-        var sessionId = Guid.Parse(HttpContext.Session.Id);
+        var sessionId = GetCartId();
         
         var cart = await _context.Carts.FirstOrDefaultAsync(c => c.Id == sessionId);
         
@@ -106,6 +108,7 @@ public class PersonalizationController : ControllerBase
         var cartItem = new CartItem
         {
             CartId = sessionId,
+            ItemId = item.Id,
             Img = imageBytes,
             TotalPrice = calculatedTotalPrice
         };
@@ -114,6 +117,41 @@ public class PersonalizationController : ControllerBase
         await _context.SaveChangesAsync();
         
         return Ok();
+    }
+
+    [HttpGet("~/cart/items")]
+    public async Task<IActionResult> GetCartItems()
+    {
+        var cartItems = await _context.CartItems
+            .AsNoTracking()
+            .Where(cartItem => cartItem.CartId == GetCartId())
+            .OrderBy(cartItem => cartItem.CreatedAt)
+            .Select(cartItem => new
+            {
+                id = cartItem.Id,
+                name = cartItem.Item.Name,
+                price = cartItem.TotalPrice,
+                imageBytes = cartItem.Img
+            })
+            .ToListAsync();
+
+        return Ok(new
+        {
+            items = cartItems.Select(cartItem => new
+            {
+                cartItem.id,
+                cartItem.name,
+                cartItem.price,
+                image = Convert.ToBase64String(cartItem.imageBytes)
+            }),
+            total = cartItems.Sum(cartItem => cartItem.price)
+        });
+    }
+
+    private Guid GetCartId()
+    {
+        var sessionHash = SHA256.HashData(Encoding.UTF8.GetBytes(HttpContext.Session.Id));
+        return new Guid(sessionHash[..16]);
     }
     
     public class AddToCartRequest
