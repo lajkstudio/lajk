@@ -17,6 +17,19 @@
     <link rel="manifest" href="/favicon_io/site.webmanifest">
 
     <style>
+        html {
+            cursor: url("/whole-hand-32.ico"), default;
+        }
+
+        a,
+        button,
+        input[type="submit"],
+        input[type="button"],
+        input[type="reset"],
+        select {
+            cursor: url("/one-finger-32.ico"), grab;
+        }
+
         header.main-header {
             display: block;
             width: 100%;
@@ -128,14 +141,14 @@
             align-items: center;
             justify-content: center;
             position: absolute;
-            cursor: grab;
+            cursor: url("/one-finger-32.ico"), grab;
             border: none;
             background-color: transparent;
             z-index: 9998;
         }
 
-        .draggable:active {
-            cursor: grabbing;
+        .draggable.is-dragging {
+            cursor: url("/hand-drag.ico"), grabbing;
         }
         
         #color-planner {
@@ -353,6 +366,7 @@
         if (!clickedDraggable) return;
 
         activeDraggable = clickedDraggable;
+        activeDraggable.classList.add('is-dragging');
 
         const rect = activeDraggable.getBoundingClientRect();
         offsetX = e.clientX - rect.left;
@@ -385,6 +399,9 @@
     });
     
     document.addEventListener('mouseup', () => {
+        if (activeDraggable) {
+            activeDraggable.classList.remove('is-dragging');
+        }
         activeDraggable = null;
     });
 
