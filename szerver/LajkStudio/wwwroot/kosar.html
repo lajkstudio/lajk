@@ -32,6 +32,15 @@
         cursor: url('one-finger-32.ico'), grab;
     }
 
+    .shipping-option {
+        cursor: url('one-finger-32.ico'), grab;
+    }
+
+    .shipping-option.selected {
+        background-color: #fff3cd;
+        border-color: #ffc107 !important;
+    }
+
     body{
         background-image: url("fohatter.png");
         background-size: cover;
@@ -134,7 +143,7 @@
 
                             <div class="row g-3">
                                 <div class="col-12 col-md-4">
-                                    <div class="bg-warning-subtle p-3 rounded-4 border border-warning h-100">
+                                    <div class="shipping-option bg-warning-subtle p-3 rounded-4 border border-warning h-100 selected">
                                         <div class="form-check">
                                             <input class="form-check-input ms-0 me-2" type="radio" name="szallitas" id="szall_gyors" value="gyors" checked>
                                             <label class="form-check-label small fw-bold" for="szall_gyors">
@@ -147,7 +156,7 @@
 
 
                                 <div class="col-12 col-md-4">
-                                    <div class="p-3 rounded-4 border border-warning-subtle h-100">
+                                    <div class="shipping-option p-3 rounded-4 border border-warning-subtle h-100">
                                         <div class="form-check">
                                             <input class="form-check-input ms-0 me-2" type="radio" name="szallitas" id="szall_normal" value="normal">
                                             <label class="form-check-label small fw-bold" for="szall_normal">
@@ -159,7 +168,7 @@
 
 
                                 <div class="col-12 col-md-4">
-                                    <div class="p-3 rounded-4 border border-warning-subtle h-100">
+                                    <div class="shipping-option p-3 rounded-4 border border-warning-subtle h-100">
                                         <div class="form-check">
                                             <input class="form-check-input ms-0 me-2" type="radio" name="szallitas" id="szall_szemelyes" value="szemelyes">
                                             <label class="form-check-label small fw-bold" for="szall_szemelyes">
@@ -198,7 +207,7 @@
                                 </div>
 
 
-                                <div class="col-12 col-md-8">
+                                <div class="col-12 col-md-8" id="card-payment-details">
                                     <div class="small fw-bold text-secondary mb-3">Bankkártya adatok kártyás fizetés esetén</div>
                                     <div class="row g-3">
                                         <div class="col-12 col-sm-6">
@@ -230,6 +239,12 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-12 col-md-8 d-none" id="cash-payment-details">
+                                    <div class="bg-light-subtle border border-warning-subtle rounded-3 p-3">
+                                        Utánvételes fizetés: a rendelés ellenértékét átvételkor kell kifizetni.
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -244,7 +259,9 @@
 
 
                         <div class="text-center pt-2">
-                            <button type="submit" class="btn bg-warning text-dark fw-bold rounded-pill px-5 py-2 fs-5 border-0 shadow-sm">
+                            <p id="payment-error" class="text-danger fw-bold d-none mb-2">Hiányoznak adatok. Kérjük, töltsd ki az összes szükséges mezőt.</p>
+                            <p id="payment-success" class="text-success fw-bold d-none mb-2">A rendelés sikeresen leadva.</p>
+                            <button id="payment-submit" type="submit" class="btn bg-warning text-dark fw-bold rounded-pill px-5 py-2 fs-5 border-0 shadow-sm">
                                 Fizetés
                             </button>
                         </div>
@@ -257,6 +274,31 @@
     <script>
         const cartItemsElement = document.getElementById("cart-items");
         const cartTotalElement = document.getElementById("cart-total");
+        const checkoutForm = document.querySelector("form");
+        const paymentError = document.getElementById("payment-error");
+        const paymentSuccess = document.getElementById("payment-success");
+        const paymentSubmit = document.getElementById("payment-submit");
+        const cardPaymentDetails = document.getElementById("card-payment-details");
+        const cashPaymentDetails = document.getElementById("cash-payment-details");
+        const shippingOptions = document.querySelectorAll(".shipping-option");
+        const paymentOptions = document.querySelectorAll('input[name="fizetes"]');
+
+        shippingOptions.forEach(option => {
+            option.addEventListener("click", () => {
+                const radio = option.querySelector('input[type="radio"]');
+                radio.checked = true;
+                shippingOptions.forEach(currentOption => currentOption.classList.remove("selected"));
+                option.classList.add("selected");
+            });
+        });
+
+        paymentOptions.forEach(option => {
+            option.addEventListener("change", () => {
+                const isCashPayment = option.value === "keszpenz" && option.checked;
+                cardPaymentDetails.classList.toggle("d-none", isCashPayment);
+                cashPaymentDetails.classList.toggle("d-none", !isCashPayment);
+            });
+        });
 
         function createCartItem(item) {
             const row = document.createElement("div");
@@ -314,6 +356,62 @@
                 cartItemsElement.append(errorMessage);
             }
         }
+
+        checkoutForm.addEventListener("submit", async event => {
+            event.preventDefault();
+            paymentError.classList.add("d-none");
+            paymentSuccess.classList.add("d-none");
+
+            let cart;
+            try {
+                const cartResponse = await fetch("/cart/items", { credentials: "same-origin" });
+                if (!cartResponse.ok) {
+                    throw new Error(`A kosár ellenőrzése sikertelen (${cartResponse.status}).`);
+                }
+                cart = await cartResponse.json();
+            } catch (error) {
+                console.error(error);
+                paymentError.textContent = "A rendelés ellenőrzése sikertelen. Kérjük, próbáld újra.";
+                paymentError.classList.remove("d-none");
+                return;
+            }
+
+            const visibleInputs = [...checkoutForm.querySelectorAll("input:not([type='radio']):not([type='submit'])")]
+                .filter(input => !input.closest(".d-none"));
+            const missingInput = visibleInputs.some(input => input.value.trim() === "");
+
+            if (missingInput || cart.items.length === 0) {
+                paymentError.classList.remove("d-none");
+                return;
+            }
+
+            paymentSubmit.disabled = true;
+
+            try {
+                const clearResponse = await fetch("/cart", {
+                    method: "DELETE",
+                    credentials: "same-origin"
+                });
+
+                if (!clearResponse.ok) {
+                    throw new Error(`A rendelés leadása sikertelen (${clearResponse.status}).`);
+                }
+
+                paymentSuccess.classList.remove("d-none");
+                checkoutForm.reset();
+                cardPaymentDetails.classList.remove("d-none");
+                cashPaymentDetails.classList.add("d-none");
+                shippingOptions.forEach(option => option.classList.remove("selected"));
+                shippingOptions[0].classList.add("selected");
+                await loadCart();
+            } catch (error) {
+                console.error(error);
+                paymentError.textContent = "A rendelés leadása sikertelen. Kérjük, próbáld újra.";
+                paymentError.classList.remove("d-none");
+            } finally {
+                paymentSubmit.disabled = false;
+            }
+        });
 
         loadCart();
     </script>

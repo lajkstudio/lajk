@@ -148,6 +148,20 @@ public class PersonalizationController : ControllerBase
         });
     }
 
+    [HttpDelete("~/cart")]
+    public async Task<IActionResult> ClearCart()
+    {
+        var cart = await _context.Carts.FirstOrDefaultAsync(c => c.Id == GetCartId());
+
+        if (cart != null)
+        {
+            _context.Carts.Remove(cart);
+            await _context.SaveChangesAsync();
+        }
+
+        return NoContent();
+    }
+
     private Guid GetCartId()
     {
         var sessionHash = SHA256.HashData(Encoding.UTF8.GetBytes(HttpContext.Session.Id));
