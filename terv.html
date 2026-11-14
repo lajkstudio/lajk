@@ -155,16 +155,73 @@
 
 
 
-        <div class="well well-sm text-warning" id="vsarga">
-          <span class="glyphicon glyphicon-lock"></span> <strong>VIP matrica csomag</strong>
-        </div>
+        <div class="panel panel-default" id="vip-redeem-panel">
+    <div class="panel-body text-center">
+        <h4><strong>VIP matricacsomag</strong></h4>
+        <p>Itt válthatod be a VIP hozzáférést!</p>
+
+        <form id="vip-redeem-form">
+            <div>
+                <input type="password" id="vip-redeem-code" placeholder="VIP kód">
+
+                <button type="button" onclick="
+                    let x = document.getElementById('vip-redeem-code');
+                    x.type = x.type === 'password' ? 'text' : 'password';
+                ">👁</button>
+            </div>
+            <br>
+            <button class="btn btn-warning" type="submit">
+                Kód beváltása
+            </button>
+        </form>
+
+        <p id="vip-redeem-message"
+           role="status"
+           aria-live="polite"
+           style="margin-top: 10px;">
+        </p>
+    </div>
+</div>
+
+<div id="vip-content" hidden>
+    <div class="well well-sm text-warning" id="vsarga">
+        <span class="glyphicon glyphicon-lock"></span>
+        <strong>VIP matrica csomag 👑</strong>
+    </div>
 
 
+<div class="vip-image-picker">
+ <p class="fw-bold">Köszönjük, hogy aktiváltad a vip csomagot, válaszd ki mit szeretnél rátenni!</p>
+    <div class="vip-image-grid">
 
-        <div class="well text-center text-warning">
-          <h2><strong>VIP</strong></h2>
-        </div>
-      </div>
+        <button type="button" onclick="termekKep('johnpork.png')">
+            <img src="johnpork.png">
+        </button>
+
+        <button type="button" onclick="termekKep('meno johnpork.png')">
+            <img src="meno johnpork.png">
+        </button>
+
+        <button type="button" onclick="termekKep('diszno.png')">
+            <img src="diszno.png">
+        </button>
+
+        <button type="button" onclick="termekKep('evil johnpork.png')">
+            <img src="evil johnpork.png">
+        </button>
+
+        <button type="button" onclick="termekKep('csirke pork.png')">
+            <img src="csirke pork.png">
+        </button>
+
+        <button type="button" onclick="termekKep('terhes johnpork.png')">
+            <img src="terhes johnpork.png">
+        </button>
+
+    </div>
+</div>
+    </div>
+    </div>
     </div>
   </main>
 
@@ -174,6 +231,33 @@
       <p class="footer-text">LIKE™</p>
     </div>
   </footer>
+<script>
 
+      document.getElementById("vip-redeem-form").addEventListener("submit", function(event) {
+          event.preventDefault();
+
+          const code = document.getElementById("vip-redeem-code").value.trim().toLowerCase();
+          const panel = document.getElementById("vip-redeem-panel");
+          const content = document.getElementById("vip-content");
+          const message = document.getElementById("vip-redeem-message");
+
+          if (code === "") {
+              message.textContent = "Nem adtál meg semmilyen kódot!";
+              message.className = "text-danger";
+              return;
+          }
+
+          if (code === "johnpork") {
+              panel.style.display = "none";
+              content.hidden = false;
+          } else {
+              message.textContent = "Hibás beváltókód! Próbáld újra!";
+              message.className = "text-danger";
+          }
+      });
+        function termekKep(kep) {
+        document.getElementById("termek-kep").src = kep;
+        }
+      </script>
 </body>
 </html>
