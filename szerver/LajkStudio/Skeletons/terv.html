@@ -156,6 +156,20 @@
         .draggable.is-dragging {
             cursor: url("/hand-drag.ico"), grabbing;
         }
+
+        .draggable.vip-image {
+            width: 20cqw;
+            height: 20cqw;
+            top: calc(50% - 10cqw);
+            left: calc(50% - 10cqw);
+        }
+
+        .draggable.vip-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            pointer-events: none;
+        }
         
         #color-planner {
             line-height: 2.5;
@@ -373,38 +387,31 @@
 
                 <div class="vip-image-picker">
                 <p class="fw-bold">Köszönjük, hogy aktiváltad a vip csomagot, válaszd ki mit szeretnél rátenni!</p>
-                    <p>VIP emojik: <strong>100 Ft/db</strong></p>
-                    <div class="emoji-container">
-                        <button class="btn btn-default" type="button" onclick="incrementEmojis(this.innerText, true)">👑</button>
-                        <button class="btn btn-default" type="button" onclick="incrementEmojis(this.innerText, true)">🐔</button>
-                        <button class="btn btn-default" type="button" onclick="incrementEmojis(this.innerText, true)">😈</button>
-                        <button class="btn btn-default" type="button" onclick="incrementEmojis(this.innerText, true)">🤰</button>
-                        <button class="btn btn-default" type="button" onclick="incrementEmojis(this.innerText, true)">🐷</button>
-                    </div>
+                    <p>VIP képek: <strong>100 Ft/db</strong></p>
                     <div class="vip-image-grid">
 
-                    <button type="button" onclick="termekKep('johnpork.png')">
-                        <img src="../../../johnpork.png">
+                    <button type="button" onclick="addVipImage('/johnpork.png')">
+                        <img src="/johnpork.png">
                     </button>
 
-                    <button type="button" onclick="termekKep('meno johnpork.png')">
-                        <img src="../../../meno johnpork.png">
+                    <button type="button" onclick="addVipImage('/meno%20johnpork.png')">
+                        <img src="/meno%20johnpork.png">
                     </button>
 
-                    <button type="button" onclick="termekKep('diszno.png')">
-                        <img src="../../../diszno.png">
+                    <button type="button" onclick="addVipImage('/diszno.png')">
+                        <img src="/diszno.png">
                     </button>
 
-                    <button type="button" onclick="termekKep('evil johnpork.png')">
-                        <img src="../../../evil johnpork.png">
+                    <button type="button" onclick="addVipImage('/evil%20johnpork.png')">
+                        <img src="/evil%20johnpork.png">
                     </button>
 
-                    <button type="button" onclick="termekKep('csirke pork.png')">
-                         <img src="../../../csirke pork.png">
+                    <button type="button" onclick="addVipImage('/csirke%20pork.png')">
+                         <img src="/csirke%20pork.png">
                     </button>
 
-                    <button type="button" onclick="termekKep('terhes johnpork.png')">
-                        <img src="../../../terhes johnpork.png">
+                    <button type="button" onclick="addVipImage('/terhes%20johnpork.png')">
+                        <img src="/terhes%20johnpork.png">
                     </button>
 
                 </div>
@@ -423,9 +430,9 @@
   <script>
     const basePrice = {{price}};
     const emojiPrice = {{emoji_price}};
-    const vipEmojiPrice = 100;
+    const vipImagePrice = 100;
     let emojis = "";
-    let vipEmojiCount = 0;
+    let vipImageCount = 0;
 
     const basePriceE = document.getElementById("termek-ar");
     const customPriceE = document.getElementById("terv-ar");
@@ -445,9 +452,8 @@
     }
 
     function setPrices() {
-        const emojiCount = visibleLength(emojis);
-        const regularEmojiCount = emojiCount - vipEmojiCount;
-        const customizationPrice = regularEmojiCount * emojiPrice + vipEmojiCount * vipEmojiPrice;
+        const emojiCount = visibleLength(emojis) + vipImageCount;
+        const customizationPrice = visibleLength(emojis) * emojiPrice + vipImageCount * vipImagePrice;
 
         basePriceE.innerText = basePrice;
         customPriceE.innerText = String(customizationPrice);
@@ -457,23 +463,34 @@
         addToCartE.disabled = false;
     }
 
-    function incrementEmojis(emoji, isVip = false) {
+    function incrementEmojis(emoji) {
         emojis += emoji;
-        if (isVip) {
-            vipEmojiCount++;
-        }
         setPrices();
 
         const draggable = document.createElement("div");
         draggable.className = "draggable";
         draggable.innerText = emoji;
-        draggable.dataset.vip = String(isVip);
         emojiPlanner.appendChild(draggable);
     }
 
-    function resetEmojis(newEmojiCount) {
+    function addVipImage(imageSrc) {
+        vipImageCount++;
+        setPrices();
+
+        const draggable = document.createElement("div");
+        draggable.className = "draggable vip-image";
+        draggable.dataset.vip = "true";
+
+        const image = document.createElement("img");
+        image.src = imageSrc;
+        image.alt = "VIP John Pork kép";
+        draggable.appendChild(image);
+        emojiPlanner.appendChild(draggable);
+    }
+
+    function resetEmojis() {
         emojis = "";
-        vipEmojiCount = 0;
+        vipImageCount = 0;
         setPrices();
 
         const allDraggables = emojiPlanner.querySelectorAll('.draggable');
@@ -557,7 +574,7 @@
 
         emojis = emojis.replace(clickedDraggable.innerText, "");
         if (clickedDraggable.dataset.vip === "true") {
-            vipEmojiCount--;
+            vipImageCount--;
         }
 
         clickedDraggable.remove();
@@ -574,9 +591,9 @@
                 
                 const formData = new FormData();
                 formData.append("DesignImage", blob, "mestermu.png");
-                formData.append("EmojisUsed", visibleLength(emojis));
-                formData.append("VipEmojisUsed", vipEmojiCount);
-                formData.append("TotalPrice", basePrice + (visibleLength(emojis) - vipEmojiCount) * emojiPrice + vipEmojiCount * vipEmojiPrice);
+                formData.append("EmojisUsed", visibleLength(emojis) + vipImageCount);
+                formData.append("VipEmojisUsed", vipImageCount);
+                formData.append("TotalPrice", basePrice + visibleLength(emojis) * emojiPrice + vipImageCount * vipImagePrice);
 
                 fetch("../add-to-cart", {
                     method: "POST",
@@ -630,9 +647,6 @@
               message.className = "text-danger";
           }
       });
-    function termekKep(kep) {
-        document.getElementById("termek-kep").src = kep;
-        }
 </script>
 </body>
 </html>
