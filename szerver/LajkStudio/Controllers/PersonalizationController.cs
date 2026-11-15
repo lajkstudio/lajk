@@ -12,6 +12,7 @@ namespace LajkStudio.Controllers;
 public class PersonalizationController : ControllerBase
 {
     private readonly AppDbContext _context;
+    private const int VipEmojiPrice = 100;
     
     public PersonalizationController(AppDbContext context)
     {
@@ -98,7 +99,15 @@ public class PersonalizationController : ControllerBase
         }
         await _context.SaveChangesAsync(); 
         
-        int calculatedTotalPrice = item.Price + (request.EmojisUsed * item.EmojiPriceIncrement);
+        int regularEmojiCount = request.EmojisUsed - request.VipEmojisUsed;
+        if (regularEmojiCount < 0 || request.VipEmojisUsed < 0)
+        {
+            return BadRequest("Invalid emoji counts.");
+        }
+
+        int calculatedTotalPrice = item.Price
+            + (regularEmojiCount * item.EmojiPriceIncrement)
+            + (request.VipEmojisUsed * VipEmojiPrice);
 
         if (calculatedTotalPrice != request.TotalPrice)
         {
@@ -172,6 +181,7 @@ public class PersonalizationController : ControllerBase
     {
         public required IFormFile DesignImage { get; set; }
         public required int EmojisUsed { get; set; }
+        public int VipEmojisUsed { get; set; }
         public required int TotalPrice { get; set; }
     }
 }

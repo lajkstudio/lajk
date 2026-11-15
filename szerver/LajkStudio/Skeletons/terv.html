@@ -373,6 +373,14 @@
 
                 <div class="vip-image-picker">
                 <p class="fw-bold">Köszönjük, hogy aktiváltad a vip csomagot, válaszd ki mit szeretnél rátenni!</p>
+                    <p>VIP emojik: <strong>100 Ft/db</strong></p>
+                    <div class="emoji-container">
+                        <button class="btn btn-default" type="button" onclick="incrementEmojis(this.innerText, true)">👑</button>
+                        <button class="btn btn-default" type="button" onclick="incrementEmojis(this.innerText, true)">🐔</button>
+                        <button class="btn btn-default" type="button" onclick="incrementEmojis(this.innerText, true)">😈</button>
+                        <button class="btn btn-default" type="button" onclick="incrementEmojis(this.innerText, true)">🤰</button>
+                        <button class="btn btn-default" type="button" onclick="incrementEmojis(this.innerText, true)">🐷</button>
+                    </div>
                     <div class="vip-image-grid">
 
                     <button type="button" onclick="termekKep('johnpork.png')">
@@ -415,7 +423,9 @@
   <script>
     const basePrice = {{price}};
     const emojiPrice = {{emoji_price}};
+    const vipEmojiPrice = 100;
     let emojis = "";
+    let vipEmojiCount = 0;
 
     const basePriceE = document.getElementById("termek-ar");
     const customPriceE = document.getElementById("terv-ar");
@@ -435,23 +445,35 @@
     }
 
     function setPrices() {
+        const emojiCount = visibleLength(emojis);
+        const regularEmojiCount = emojiCount - vipEmojiCount;
+        const customizationPrice = regularEmojiCount * emojiPrice + vipEmojiCount * vipEmojiPrice;
+
         basePriceE.innerText = basePrice;
-        customPriceE.innerText = String(emojiPrice * visibleLength(emojis));
-        emojiCountE.innerText = String(visibleLength(emojis));
-        totalPriceE.innerText = String(basePrice + emojiPrice * visibleLength(emojis));
+        customPriceE.innerText = String(customizationPrice);
+        emojiCountE.innerText = String(emojiCount);
+        totalPriceE.innerText = String(basePrice + customizationPrice);
 
         addToCartE.disabled = false;
     }
 
-    function incrementEmojis(emoji) {
+    function incrementEmojis(emoji, isVip = false) {
         emojis += emoji;
+        if (isVip) {
+            vipEmojiCount++;
+        }
         setPrices();
 
-        emojiPlanner.insertAdjacentHTML('beforeend', '<div class="draggable">' + emoji + '</div>');
+        const draggable = document.createElement("div");
+        draggable.className = "draggable";
+        draggable.innerText = emoji;
+        draggable.dataset.vip = String(isVip);
+        emojiPlanner.appendChild(draggable);
     }
 
     function resetEmojis(newEmojiCount) {
         emojis = "";
+        vipEmojiCount = 0;
         setPrices();
 
         const allDraggables = emojiPlanner.querySelectorAll('.draggable');
@@ -534,6 +556,9 @@
         e.preventDefault();
 
         emojis = emojis.replace(clickedDraggable.innerText, "");
+        if (clickedDraggable.dataset.vip === "true") {
+            vipEmojiCount--;
+        }
 
         clickedDraggable.remove();
         
@@ -550,7 +575,8 @@
                 const formData = new FormData();
                 formData.append("DesignImage", blob, "mestermu.png");
                 formData.append("EmojisUsed", visibleLength(emojis));
-                formData.append("TotalPrice", basePrice + emojiPrice * visibleLength(emojis));
+                formData.append("VipEmojisUsed", vipEmojiCount);
+                formData.append("TotalPrice", basePrice + (visibleLength(emojis) - vipEmojiCount) * emojiPrice + vipEmojiCount * vipEmojiPrice);
 
                 fetch("../add-to-cart", {
                     method: "POST",
